@@ -2,4 +2,7 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="alice_blue">#F4FAFF</color>
+    <color name="circumorbital_ring">#525DC0</color>
+    <color name="bright_red">#E13E3E</color>
 </resources>
