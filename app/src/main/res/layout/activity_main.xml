@@ -30,7 +30,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/horizontal_margin_supplementary_half"
             android:layout_weight="1"
-            app:icon="@drawable/ic_heart"
+            app:icon="@drawable/ic_heart_empty"
             app:iconGravity="end"
             android:backgroundTint="@color/btn_favorites_color"
             style="@style/StyleNavButton"
