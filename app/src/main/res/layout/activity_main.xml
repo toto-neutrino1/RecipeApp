@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
-    android:background="@color/alice_blue">
+    android:background="@color/main_background_color">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,27 +14,27 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginHorizontal="@dimen/horizontal_margin_main"
-        android:layout_marginBottom="@dimen/btn_bottom_margin"
+        android:layout_marginBottom="@dimen/bottom_margin"
         android:orientation="horizontal">
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/btn_horizontal_margin_half_supplementary"
+            android:layout_marginEnd="@dimen/horizontal_margin_supplementary_half"
             android:layout_weight="1"
-            android:backgroundTint="@color/circumorbital_ring"
+            android:backgroundTint="@color/btn_categories_color"
             style="@style/StyleNavButton"
-            android:text="@string/button_categories"/>
+            android:text="@string/title_categories"/>
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/btn_horizontal_margin_half_supplementary"
+            android:layout_marginStart="@dimen/horizontal_margin_supplementary_half"
             android:layout_weight="1"
             app:icon="@drawable/ic_heart"
             app:iconGravity="end"
-            android:backgroundTint="@color/bright_red"
+            android:backgroundTint="@color/btn_favorites_color"
             style="@style/StyleNavButton"
-            android:text="@string/button_favorites"/>
+            android:text="@string/title_favorites"/>
 
     </LinearLayout>
 
