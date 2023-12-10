@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- margin, paddings -->
+    <dimen name="horizontal_margin_main">16dp</dimen>
+    <dimen name="horizontal_margin_main_half">8dp</dimen>
+    <dimen name="bottom_margin">8dp</dimen>
+    <dimen name="horizontal_margin_supplementary_half">2dp</dimen>
+    <dimen name="vertical_padding">10dp</dimen>
+    <dimen name="horizontal_padding">18dp</dimen>
+
+    <!-- button corner radius -->
+    <dimen name="corner_radius">8dp</dimen>
+
+    <dimen name="text_main_size">14sp</dimen>
+</resources>
