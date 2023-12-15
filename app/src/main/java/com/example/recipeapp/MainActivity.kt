@@ -20,10 +20,10 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         if (savedInstanceState == null) {
-            val fragmentTransaction = fragmentManager.beginTransaction()
-            fragmentTransaction.setReorderingAllowed(true)
-            fragmentTransaction.add(R.id.mainContainer, CategoriesListFragment())
-            fragmentTransaction.commit()
+            fragmentManager.commit {
+                setReorderingAllowed(true)
+                add(R.id.mainContainer, CategoriesListFragment())
+            }
         }
     }
 }

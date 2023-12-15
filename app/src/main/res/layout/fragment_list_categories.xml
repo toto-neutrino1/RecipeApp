@@ -12,6 +12,6 @@
         android:layout_marginTop="@dimen/big_82"
         android:background="@drawable/shape_rounded_name"
         style="@style/StyleTitle20"
-        android:text="@string/tv_categories_list_fragment" />
+        android:text="@string/title_categories" />
 
 </FrameLayout>

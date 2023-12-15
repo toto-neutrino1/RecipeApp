@@ -2,5 +2,4 @@
     <string name="app_name">RecipeApp</string>
     <string name="title_favorites">Избранное</string>
     <string name="title_categories">Категории</string>
-    <string name="tv_categories_list_fragment">Категории</string>
 </resources>
