@@ -38,7 +38,8 @@
             android:layout_weight="1"
             android:backgroundTint="@color/btn_categories_color"
             style="@style/StyleNavButton"
-            android:text="@string/title_categories"/>
+            android:text="@string/title_categories"
+            android:onClick="onClickCategories"/>
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -48,7 +49,8 @@
             app:iconGravity="end"
             android:backgroundTint="@color/btn_favorites_color"
             style="@style/StyleNavButton"
-            android:text="@string/title_favorites"/>
+            android:text="@string/title_favorites"
+            android:onClick="onClickFavorites"/>
 
     </LinearLayout>
 
