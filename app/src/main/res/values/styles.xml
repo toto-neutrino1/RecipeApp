@@ -9,8 +9,15 @@
 
     <style name="StyleNavButton" parent="Widget.Material3.Button">
         <item name="android:textAppearance">@style/StyleTitle14</item>
-        <item name="android:paddingVertical">@dimen/vertical_padding</item>
-        <item name="android:paddingHorizontal">@dimen/horizontal_padding</item>
-        <item name="cornerRadius">@dimen/corner_radius</item>
+        <item name="android:paddingVertical">@dimen/small_100</item>
+        <item name="android:paddingHorizontal">@dimen/normal_112</item>
+        <item name="cornerRadius">@dimen/normal_50</item>
+    </style>
+
+    <style name="StyleTitle20" parent="StyleTitle14">
+        <item name="android:textSize">@dimen/text_title_size</item>
+        <item name="android:textColor">@color/title_text_color</item>
+        <item name="android:paddingVertical">@dimen/small_100</item>
+        <item name="android:paddingHorizontal">@dimen/small_100</item>
     </style>
 </resources>
