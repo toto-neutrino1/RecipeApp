@@ -2,9 +2,9 @@ package com.example.recipeapp
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
-import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.add
 import androidx.fragment.app.commit
+import androidx.fragment.app.replace
 import com.example.recipeapp.databinding.ActivityMainBinding
 import java.lang.IllegalArgumentException
 
@@ -23,24 +23,24 @@ class MainActivity : AppCompatActivity() {
         if (savedInstanceState == null) {
             fragmentManager.commit {
                 setReorderingAllowed(true)
-                add(R.id.mainContainer, CategoriesListFragment())
+                add<CategoriesListFragment>(R.id.mainContainer)
             }
         }
-    }
 
-    fun onClickCategories(view: View) {
-        fragmentManager.commit {
-            replace(R.id.mainContainer, CategoriesListFragment())
-            setReorderingAllowed(true)
-            addToBackStack("Categories fragment")
+        binding.categoriesBtn.setOnClickListener {
+            fragmentManager.commit {
+                replace<CategoriesListFragment>(R.id.mainContainer)
+                setReorderingAllowed(true)
+                addToBackStack("Categories fragment")
+            }
         }
-    }
 
-    fun onClickFavorites(view: View) {
-        fragmentManager.commit {
-            replace(R.id.mainContainer, FavoritesFragment())
-            setReorderingAllowed(true)
-            addToBackStack("Favorites fragment")
+        binding.favoritesBtn.setOnClickListener {
+            fragmentManager.commit {
+                replace<FavoritesFragment>(R.id.mainContainer)
+                setReorderingAllowed(true)
+                addToBackStack("Favorites fragment")
+            }
         }
     }
 }

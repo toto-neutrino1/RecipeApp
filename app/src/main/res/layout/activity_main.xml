@@ -32,15 +32,16 @@
         android:orientation="horizontal">
 
         <Button
+            android:id="@+id/categoriesBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/small_20"
             android:layout_weight="1"
             android:backgroundTint="@color/btn_categories_color"
             style="@style/StyleNavButton"
-            android:text="@string/title_categories"
-            android:onClick="onClickCategories"/>
+            android:text="@string/title_categories" />
         <Button
+            android:id="@+id/favoritesBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/small_20"
@@ -49,8 +50,7 @@
             app:iconGravity="end"
             android:backgroundTint="@color/btn_favorites_color"
             style="@style/StyleNavButton"
-            android:text="@string/title_favorites"
-            android:onClick="onClickFavorites"/>
+            android:text="@string/title_favorites" />
 
     </LinearLayout>
 
