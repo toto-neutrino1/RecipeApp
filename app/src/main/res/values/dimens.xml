@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- margin, paddings -->
+    <dimen name="zero_size">0dp</dimen>
+    <dimen name="normal_minus_50">-8dp</dimen>
     <dimen name="normal_50">8dp</dimen>
     <dimen name="normal_100">16dp</dimen>
     <dimen name="normal_112">18dp</dimen>
     <dimen name="normal_125">20dp</dimen>
 
+    <dimen name="big_65">130dp</dimen>
     <dimen name="big_82">164dp</dimen>
     <dimen name="big_100">200dp</dimen>
 

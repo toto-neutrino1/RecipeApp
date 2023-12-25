@@ -3,7 +3,7 @@
     <style name="StyleTitle14" parent="TextAppearance.AppCompat">
         <item name="android:textSize">@dimen/text_main_size</item>
         <item name="android:fontFamily">@font/montserrat_alternates_semi_bold</item>
-        <item name="android:textColor">@color/btn_text_color</item>
+        <item name="android:textColor">@color/white</item>
         <item name="android:textAllCaps">true</item>
     </style>
 
@@ -19,5 +19,13 @@
         <item name="android:textColor">@color/title_text_color</item>
         <item name="android:paddingVertical">@dimen/small_100</item>
         <item name="android:paddingHorizontal">@dimen/small_100</item>
+    </style>
+
+    <style name="StyleCardView" parent="Widget.MaterialComponents.CardView">
+        <item name="cardCornerRadius">@dimen/normal_50</item>
+        <item name="android:layout_marginBottom">@dimen/normal_minus_50</item>
+        <item name="cardBackgroundColor">@color/white</item>
+        <item name="android:foreground">?android:attr/selectableItemBackground</item>
+        <item name="android:clickable">true</item>
     </style>
 </resources>
