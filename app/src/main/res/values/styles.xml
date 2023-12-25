@@ -23,7 +23,6 @@
 
     <style name="StyleCardView" parent="Widget.MaterialComponents.CardView">
         <item name="cardCornerRadius">@dimen/normal_50</item>
-        <item name="android:layout_marginBottom">@dimen/normal_minus_50</item>
         <item name="cardBackgroundColor">@color/white</item>
         <item name="android:foreground">?android:attr/selectableItemBackground</item>
         <item name="android:clickable">true</item>

@@ -2,7 +2,6 @@
 <resources>
     <!-- margin, paddings -->
     <dimen name="zero_size">0dp</dimen>
-    <dimen name="normal_minus_50">-8dp</dimen>
     <dimen name="normal_50">8dp</dimen>
     <dimen name="normal_100">16dp</dimen>
     <dimen name="normal_112">18dp</dimen>
