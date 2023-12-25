@@ -6,12 +6,12 @@
     tools:context=".CategoriesListFragment">
 
     <TextView
+        style="@style/StyleTitle20"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/normal_100"
         android:layout_marginTop="@dimen/big_82"
         android:background="@drawable/shape_rounded_name"
-        style="@style/StyleTitle20"
         android:text="@string/title_favorites" />
 
 </FrameLayout>
