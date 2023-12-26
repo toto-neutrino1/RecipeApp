@@ -1,10 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <style name="StyleTitle12" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">@dimen/text_second_size</item>
+        <item name="android:textColor">@color/second_text_color</item>
+        <item name="android:fontFamily">@font/montserrat_medium</item>
+    </style>
+
     <style name="StyleTitle14" parent="TextAppearance.AppCompat">
         <item name="android:textSize">@dimen/text_main_size</item>
-        <item name="android:fontFamily">@font/montserrat_alternates_semi_bold</item>
-        <item name="android:textColor">@color/btn_text_color</item>
+        <item name="android:textColor">@color/white</item>
         <item name="android:textAllCaps">true</item>
+        <item name="android:fontFamily">@font/montserrat_alternates_semi_bold</item>
+    </style>
+
+    <style name="StyleTitle20" parent="StyleTitle14">
+        <item name="android:textSize">@dimen/text_title_size</item>
+        <item name="android:textColor">@color/title_text_color</item>
+        <item name="android:paddingVertical">@dimen/small_100</item>
+        <item name="android:paddingHorizontal">@dimen/small_100</item>
     </style>
 
     <style name="StyleNavButton" parent="Widget.Material3.Button">
@@ -14,10 +28,10 @@
         <item name="cornerRadius">@dimen/normal_50</item>
     </style>
 
-    <style name="StyleTitle20" parent="StyleTitle14">
-        <item name="android:textSize">@dimen/text_title_size</item>
-        <item name="android:textColor">@color/title_text_color</item>
-        <item name="android:paddingVertical">@dimen/small_100</item>
-        <item name="android:paddingHorizontal">@dimen/small_100</item>
+    <style name="StyleCardView" parent="Widget.MaterialComponents.CardView">
+        <item name="cardCornerRadius">@dimen/normal_50</item>
+        <item name="cardBackgroundColor">@color/white</item>
+        <item name="android:foreground">?android:attr/selectableItemBackground</item>
+        <item name="android:clickable">true</item>
     </style>
 </resources>
