@@ -25,7 +25,7 @@
         <TextView
             android:id="@+id/tvCategoryTitle"
             style="@style/StyleTitle14"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/normal_50"
             android:layout_marginTop="@dimen/normal_50"
@@ -34,12 +34,12 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/ivCategory"
-            tools:text="Бургеры БурБургерыррррррhhhhhhhh Бургеры Бургерыры Бургеры" />
+            tools:text="Бургеры БурБургерыррррррhhhhhhh Бургеры Бургерыры Бургеры" />
 
         <TextView
             android:id="@+id/tvCategoryDescription"
             style="@style/StyleTitle12"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/normal_50"
             android:layout_marginTop="@dimen/normal_50"
@@ -48,6 +48,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvCategoryTitle"
-            tools:text="Пицца на любой вкус ицв ет. Лучшая подборкадляте бя" />
+            tools:text="Пицца на любой вкус и цвет. Лучшая подборка для тебя" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>
