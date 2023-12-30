@@ -9,13 +9,12 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.recipeapp.model.Category
 
-class CategoriesListAdapter
-    (
+class CategoriesListAdapter(
     private val dataset: List<Category>,
     private val fragment: CategoriesListFragment
-) :
-    RecyclerView.Adapter<CategoriesListAdapter.CategoriesListViewHolder>() {
+) : RecyclerView.Adapter<CategoriesListAdapter.CategoriesListViewHolder>() {
 
     class CategoriesListViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val cvCategoryItem: CardView = view.findViewById(R.id.cvCategoryItem)
@@ -32,8 +31,18 @@ class CategoriesListAdapter
     }
 
     override fun onBindViewHolder(viewHolder: CategoriesListViewHolder, position: Int) {
-        viewHolder.tvCategoryName.text = dataset[position].title
-        viewHolder.tvCategoryDescription.text = dataset[position].description
+        setTextAndContentDescription(
+            view = viewHolder.tvCategoryName,
+            settingText = "${dataset[position].title}",
+            prefix = "Название"
+        )
+
+        setTextAndContentDescription(
+            view = viewHolder.tvCategoryDescription,
+            settingText = "${dataset[position].description}",
+            prefix = "Описание"
+        )
+
         try {
             viewHolder.ivCategoryImage.setImageDrawable(
                 Drawable.createFromStream(
@@ -41,11 +50,20 @@ class CategoriesListAdapter
                 )
             )
         } catch (e: Exception) {
-            Log.e("onBindViewHolder, categoryImage", e.stackTrace.toString())
+            Log.e("asset error", "${e.printStackTrace()}")
         }
 
+        viewHolder.cvCategoryItem.contentDescription =
+            "Категория ${dataset[position].id + 1}"
         viewHolder.cvCategoryItem.setOnClickListener { }
     }
 
     override fun getItemCount() = dataset.size
+
+    private fun setTextAndContentDescription(view: TextView, settingText: String, prefix: String) {
+        with(view) {
+            text = settingText
+            contentDescription = "$prefix: $settingText"
+        }
+    }
 }

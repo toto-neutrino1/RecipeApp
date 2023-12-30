@@ -14,6 +14,7 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:contentDescription="@null"
             android:scaleType="centerCrop"
             android:src="@drawable/bcg_categories"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -26,6 +27,7 @@
             android:layout_marginStart="@dimen/normal_100"
             android:layout_marginBottom="@dimen/normal_100"
             android:background="@drawable/shape_rounded_name"
+            android:contentDescription="@string/categoriesList"
             android:text="@string/title_categories"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
@@ -37,7 +39,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/normal_50"
-        android:layout_marginVertical="@dimen/normal_50"
         app:layoutManager="GridLayoutManager"
         app:spanCount="2"
         tools:itemCount="6"

@@ -2,4 +2,8 @@
     <string name="app_name">RecipeApp</string>
     <string name="title_favorites">Избранное</string>
     <string name="title_categories">Категории</string>
+    <string name="category">Категория</string>
+    <string name="categoriesBtn">Кнопка категории</string>
+    <string name="favoritesBtn">Кнопка избранное</string>
+    <string name="categoriesList">Раздел категории</string>
 </resources>
