@@ -27,7 +27,7 @@
             android:layout_marginStart="@dimen/normal_100"
             android:layout_marginBottom="@dimen/normal_100"
             android:background="@drawable/shape_rounded_name"
-            android:contentDescription="@string/categoriesList"
+            android:contentDescription="@string/categories_list"
             android:text="@string/title_categories"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />

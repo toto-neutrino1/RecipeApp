@@ -3,7 +3,7 @@
     <string name="title_favorites">Избранное</string>
     <string name="title_categories">Категории</string>
     <string name="category">Категория</string>
-    <string name="categoriesBtn">Кнопка категории</string>
-    <string name="favoritesBtn">Кнопка избранное</string>
-    <string name="categoriesList">Раздел категории</string>
+    <string name="categories_button">Кнопка категории</string>
+    <string name="favorites_button">Кнопка избранное</string>
+    <string name="categories_list">Раздел категории</string>
 </resources>

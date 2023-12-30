@@ -38,7 +38,7 @@
             android:layout_marginEnd="@dimen/small_20"
             android:layout_weight="1"
             android:backgroundTint="@color/btn_categories_color"
-            android:contentDescription="@string/categoriesBtn"
+            android:contentDescription="@string/categories_button"
             android:text="@string/title_categories" />
 
         <Button
@@ -49,7 +49,7 @@
             android:layout_marginStart="@dimen/small_20"
             android:layout_weight="1"
             android:backgroundTint="@color/btn_favorites_color"
-            android:contentDescription="@string/favoritesBtn"
+            android:contentDescription="@string/favorites_button"
             android:text="@string/title_favorites"
             app:icon="@drawable/ic_heart_empty"
             app:iconGravity="end" />
