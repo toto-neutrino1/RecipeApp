@@ -44,10 +44,12 @@ class CategoriesListAdapter(
                     )
                 )
 
-                contentDescription = "Изображение категории ${dataset[position].title}"
+                contentDescription =
+                    "${fragment.context?.getString(R.string.cont_descr_iv_category)} " +
+                            "${dataset[position].title}"
             }
         } catch (e: Exception) {
-            Log.e("asset error", "${e.printStackTrace()}")
+            Log.e(fragment.context?.getString(R.string.asset_error), "${e.printStackTrace()}")
         }
 
         viewHolder.cvCategoryItem.setOnClickListener { }
