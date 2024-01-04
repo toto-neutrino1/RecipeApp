@@ -31,39 +31,27 @@ class CategoriesListAdapter(
     }
 
     override fun onBindViewHolder(viewHolder: CategoriesListViewHolder, position: Int) {
-        setTextAndContentDescription(
-            view = viewHolder.tvCategoryName,
-            settingText = "${dataset[position].title}",
-            prefix = "Название"
-        )
-
-        setTextAndContentDescription(
-            view = viewHolder.tvCategoryDescription,
-            settingText = "${dataset[position].description}",
-            prefix = "Описание"
-        )
+        with(viewHolder) {
+            tvCategoryName.text = "${dataset[position].title}"
+            tvCategoryDescription.text = "${dataset[position].description}"
+        }
 
         try {
-            viewHolder.ivCategoryImage.setImageDrawable(
-                Drawable.createFromStream(
-                    fragment.context?.assets?.open(dataset[position].imageUrl), null
+            with(viewHolder.ivCategoryImage) {
+                setImageDrawable(
+                    Drawable.createFromStream(
+                        fragment.context?.assets?.open(dataset[position].imageUrl), null
+                    )
                 )
-            )
+
+                contentDescription = "Изображение категории ${dataset[position].title}"
+            }
         } catch (e: Exception) {
             Log.e("asset error", "${e.printStackTrace()}")
         }
 
-        viewHolder.cvCategoryItem.contentDescription =
-            "Категория ${dataset[position].id + 1}"
         viewHolder.cvCategoryItem.setOnClickListener { }
     }
 
     override fun getItemCount() = dataset.size
-
-    private fun setTextAndContentDescription(view: TextView, settingText: String, prefix: String) {
-        with(view) {
-            text = settingText
-            contentDescription = "$prefix: $settingText"
-        }
-    }
 }
