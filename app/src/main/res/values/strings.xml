@@ -2,4 +2,7 @@
     <string name="app_name">RecipeApp</string>
     <string name="title_favorites">Избранное</string>
     <string name="title_categories">Категории</string>
+    <string name="cont_descr_iv_categories_main">Изображение раздел категории</string>
+    <string name="cont_descr_iv_category">Изображение категории</string>
+    <string name="asset_error">asset error</string>
 </resources>

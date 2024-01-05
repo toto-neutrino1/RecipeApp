@@ -1,34 +1,11 @@
 package com.example.recipeapp
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.ImageView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.add
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
 import com.example.recipeapp.databinding.ActivityMainBinding
-import java.lang.IllegalArgumentException
-
-data class Category(
-    val id: Int,
-    val title: String,
-    val description: String,
-    val imageUrl: String,
-)
-
-data class Recipe(
-    val id: Int,
-    val title: String,
-    val ingredients: List<Ingredient>,
-    val method: String,
-    val imageUrl: String,
-)
-
-data class Ingredient(
-    val quantity: String,
-    val unitOfMeasure: String,
-    val description: String,
-)
 
 class MainActivity : AppCompatActivity() {
     private var _binding: ActivityMainBinding? = null

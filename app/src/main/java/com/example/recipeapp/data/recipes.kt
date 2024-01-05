@@ -1,4 +1,6 @@
-package com.example.recipeapp
+package com.example.recipeapp.data
+
+import com.example.recipeapp.model.Category
 
 object STUB {
     private val categoriesList =
