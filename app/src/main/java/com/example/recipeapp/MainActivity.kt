@@ -21,8 +21,8 @@ class MainActivity : AppCompatActivity() {
 
         if (savedInstanceState == null) {
             fragmentManager.commit {
-                setReorderingAllowed(true)
                 add<CategoriesListFragment>(R.id.mainContainer)
+                setReorderingAllowed(true)
             }
         }
 
