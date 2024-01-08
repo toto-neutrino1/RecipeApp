@@ -63,7 +63,7 @@ class CategoriesListAdapter(
         }
 
         viewHolder.cvCategoryItem.setOnClickListener {
-            itemClickListener?.onItemClick(categoryId = position)
+            itemClickListener?.onItemClick(categoryId = dataset[position].id)
         }
     }
 

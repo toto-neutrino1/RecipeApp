@@ -9,6 +9,9 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
+import com.example.recipeapp.data.ARG_CATEGORY_ID
+import com.example.recipeapp.data.ARG_CATEGORY_IMAGE_URL
+import com.example.recipeapp.data.ARG_CATEGORY_NAME
 import com.example.recipeapp.data.STUB
 import com.example.recipeapp.databinding.FragmentListCategoriesBinding
 
@@ -57,9 +60,9 @@ class CategoriesListFragment : Fragment() {
         val categoryImageUrl = currentCategory?.imageUrl
 
         val bundle = bundleOf(
-            "ARG_CATEGORY_ID" to categoryId,
-            "ARG_CATEGORY_NAME" to categoryName,
-            "ARG_CATEGORY_IMAGE_URL" to categoryImageUrl
+            ARG_CATEGORY_ID to categoryId,
+            ARG_CATEGORY_NAME to categoryName,
+            ARG_CATEGORY_IMAGE_URL to categoryImageUrl
         )
 
         parentFragmentManager.commit {

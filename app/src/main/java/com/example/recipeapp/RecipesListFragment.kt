@@ -5,6 +5,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.recipeapp.data.ARG_CATEGORY_ID
+import com.example.recipeapp.data.ARG_CATEGORY_IMAGE_URL
+import com.example.recipeapp.data.ARG_CATEGORY_NAME
 import com.example.recipeapp.databinding.FragmentListRecipesBinding
 
 class RecipesListFragment : Fragment() {
@@ -37,8 +40,8 @@ class RecipesListFragment : Fragment() {
     }
 
     private fun initializeBundleData() {
-        categoryId = requireArguments().getInt("ARG_CATEGORY_ID")
-        categoryName = requireArguments().getString("ARG_CATEGORY_NAME")
-        categoryImageUrl = requireArguments().getString("ARG_CATEGORY_IMAGE_URL")
+        categoryId = requireArguments().getInt(ARG_CATEGORY_ID)
+        categoryName = requireArguments().getString(ARG_CATEGORY_NAME)
+        categoryImageUrl = requireArguments().getString(ARG_CATEGORY_IMAGE_URL)
     }
 }
