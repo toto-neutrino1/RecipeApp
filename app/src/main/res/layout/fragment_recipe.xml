@@ -5,44 +5,43 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".RecipesListFragment">
+    tools:context=".RecipeFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <ImageView
-            android:id="@+id/ivTitleListRecipesImage"
+            android:id="@+id/ivTitleRecipeImage"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/big_128"
-            android:contentDescription="@string/cont_descr_iv_recipes_burgers"
+            android:layout_height="@dimen/big_112"
+            android:contentDescription="@string/cont_descr_iv_recipe"
             android:scaleType="centerCrop"
             android:src="@drawable/bcg_recipes_list"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
-            android:id="@+id/tvTitleListRecipesText"
+            android:id="@+id/tvTitleRecipeText"
             style="@style/StyleTitle20"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/normal_100"
             android:layout_marginBottom="@dimen/normal_100"
             android:background="@drawable/shape_rounded_name"
-            android:text="@string/title_burgers"
+            android:text="Бургер с грибами и сыром"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvListRecipes"
+        android:id="@+id/rvRecipe"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/normal_50"
         app:layoutManager="LinearLayoutManager"
-        tools:itemCount="6"
-        tools:listitem="@layout/item_list_recipes">
+        tools:itemCount="6">
 
     </androidx.recyclerview.widget.RecyclerView>
 

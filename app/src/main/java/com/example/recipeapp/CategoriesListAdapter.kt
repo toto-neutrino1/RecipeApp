@@ -59,7 +59,10 @@ class CategoriesListAdapter(
                             "${dataset[position].title}"
             }
         } catch (e: Exception) {
-            Log.e(fragment.context?.getString(R.string.asset_error), "${e.printStackTrace()}")
+            Log.e(
+                "${fragment.context?.getString(R.string.asset_error)}",
+                "${e.printStackTrace()}"
+            )
         }
 
         viewHolder.cvCategoryItem.setOnClickListener {
