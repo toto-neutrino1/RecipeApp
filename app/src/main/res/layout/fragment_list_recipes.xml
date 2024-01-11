@@ -12,8 +12,9 @@
         android:layout_height="wrap_content">
 
         <ImageView
+            android:id="@+id/ivTitleListRecipesImage"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/big_128"
             android:contentDescription="@string/cont_descr_iv_recipes_burgers"
             android:scaleType="centerCrop"
             android:src="@drawable/bcg_recipes_list"
@@ -21,6 +22,7 @@
             app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
+            android:id="@+id/tvTitleListRecipesText"
             style="@style/StyleTitle20"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -34,12 +36,13 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvRecipes"
+        android:id="@+id/rvListRecipes"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/normal_50"
         app:layoutManager="LinearLayoutManager"
-        tools:itemCount="3">
+        tools:itemCount="6"
+        tools:listitem="@layout/item_list_recipes">
 
     </androidx.recyclerview.widget.RecyclerView>
 

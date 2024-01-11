@@ -7,9 +7,12 @@
     <dimen name="normal_112">18dp</dimen>
     <dimen name="normal_125">20dp</dimen>
 
+    <dimen name="big_50">100dp</dimen>
     <dimen name="big_65">130dp</dimen>
     <dimen name="big_82">164dp</dimen>
     <dimen name="big_100">200dp</dimen>
+    <dimen name="big_112">224dp</dimen>
+    <dimen name="big_128">256dp</dimen>
 
     <dimen name="small_20">2dp</dimen>
     <dimen name="small_100">10dp</dimen>
