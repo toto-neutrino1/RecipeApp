@@ -21,24 +21,24 @@ class MainActivity : AppCompatActivity() {
 
         if (savedInstanceState == null) {
             fragmentManager.commit {
-                add<CategoriesListFragment>(R.id.mainContainer)
                 setReorderingAllowed(true)
+                add<CategoriesListFragment>(R.id.mainContainer)
             }
         }
 
         binding.categoriesBtn.setOnClickListener {
             fragmentManager.commit {
-                replace<CategoriesListFragment>(R.id.mainContainer)
                 setReorderingAllowed(true)
                 addToBackStack("Categories fragment")
+                replace<CategoriesListFragment>(R.id.mainContainer)
             }
         }
 
         binding.favoritesBtn.setOnClickListener {
             fragmentManager.commit {
-                replace<FavoritesFragment>(R.id.mainContainer)
                 setReorderingAllowed(true)
                 addToBackStack("Favorites fragment")
+                replace<FavoritesFragment>(R.id.mainContainer)
             }
         }
     }

@@ -13,9 +13,7 @@ import androidx.fragment.app.replace
 import com.example.recipeapp.data.ARG_CATEGORY_ID
 import com.example.recipeapp.data.ARG_CATEGORY_IMAGE_URL
 import com.example.recipeapp.data.ARG_CATEGORY_NAME
-import com.example.recipeapp.data.ARG_RECIPE_ID
-import com.example.recipeapp.data.ARG_RECIPE_IMAGE_URL
-import com.example.recipeapp.data.ARG_RECIPE_NAME
+import com.example.recipeapp.data.ARG_RECIPE
 import com.example.recipeapp.data.STUB
 import com.example.recipeapp.databinding.FragmentListRecipesBinding
 
@@ -40,7 +38,7 @@ class RecipesListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initBundleData()
+        initInputBundleData()
         setInitScreenContent()
         initRecycler()
     }
@@ -50,7 +48,7 @@ class RecipesListFragment : Fragment() {
         _binding = null
     }
 
-    private fun initBundleData() {
+    private fun initInputBundleData() {
         arguments?.let {
             categoryId = it.getInt(ARG_CATEGORY_ID)
             categoryName = it.getString(ARG_CATEGORY_NAME)
@@ -103,10 +101,13 @@ class RecipesListFragment : Fragment() {
     }
 
     private fun openRecipeByRecipeId(recipeId: Int) {
+        val recipe = STUB.getRecipeById(recipeId, categoryId ?: -1)
+        val bundle = bundleOf(ARG_RECIPE to recipe)
+
         parentFragmentManager.commit {
-            replace<RecipeFragment>(R.id.mainContainer)
             setReorderingAllowed(true)
             addToBackStack("RecipeFragment")
+            replace<RecipeFragment>(R.id.mainContainer, args = bundle)
         }
     }
 }
