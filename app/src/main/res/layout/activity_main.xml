@@ -10,7 +10,7 @@
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/mainContainer"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="@dimen/zero_size"
         android:layout_marginBottom="@dimen/normal_50"
         app:layout_constraintBottom_toTopOf="@id/navButtonsContainer"
         app:layout_constraintEnd_toEndOf="parent"
