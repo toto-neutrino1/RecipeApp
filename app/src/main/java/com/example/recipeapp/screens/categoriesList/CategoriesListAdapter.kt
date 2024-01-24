@@ -1,4 +1,4 @@
-package com.example.recipeapp
+package com.example.recipeapp.screens.categoriesList
 
 import android.graphics.drawable.Drawable
 import android.util.Log
@@ -9,6 +9,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.recipeapp.R
 import com.example.recipeapp.model.Category
 
 class CategoriesListAdapter(

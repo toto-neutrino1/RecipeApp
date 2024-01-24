@@ -1,12 +1,14 @@
 <resources>
     <string name="app_name">RecipeApp</string>
-    <string name="title_favorites">Избранное</string>
-    <string name="title_categories">Категории</string>
-    <string name="title_burgers">Бургеры</string>
-    <string name="cont_descr_iv_categories_main">Изображение раздел категории</string>
-    <string name="cont_descr_iv_recipes_burgers">Изображение рецепты бургеры</string>
-    <string name="cont_descr_iv_category">Изображение категории</string>
-    <string name="cont_descr_iv_list_recipes">Изображение списка рецептов</string>
-    <string name="cont_descr_iv_recipe">Изображение рецепта</string>
+    <string name="title_favorites" translatable="false">Избранное</string>
+    <string name="title_categories" translatable="false">Категории</string>
+    <string name="title_burgers" translatable="false">Бургеры</string>
+    <string name="title_ingredients" translatable="false">Ингредиенты</string>
+    <string name="title_method" translatable="false">Способ приготовления</string>
+    <string name="cont_descr_iv_categories_main" translatable="false">Изображение раздел категории</string>
+    <string name="cont_descr_iv_recipes_burgers" translatable="false">Изображение рецепты бургеры</string>
+    <string name="cont_descr_iv_category" translatable="false">Изображение категории</string>
+    <string name="cont_descr_iv_list_recipes" translatable="false">Изображение списка рецептов</string>
+    <string name="cont_descr_iv_recipe" translatable="false">Изображение рецепта</string>
     <string name="asset_error">asset error</string>
 </resources>

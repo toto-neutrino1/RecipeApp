@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="horizontal"
+    android:paddingBottom="@dimen/normal_50">
+
+    <TextView
+        android:id="@+id/tvIngredientNameText"
+        style="@style/StyleTitle14Supplementary"
+        android:layout_width="@dimen/big_87"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/normal_75"
+        android:text="Подсолнечное масло" />
+
+    <TextView
+        android:id="@+id/tvIngredientQuantityText"
+        style="@style/StyleTitle14Supplementary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/normal_75"
+        android:gravity="end"
+        android:text="5 С. Ложек" />
+</LinearLayout>

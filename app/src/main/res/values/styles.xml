@@ -14,6 +14,11 @@
         <item name="android:fontFamily">@font/montserrat_alternates_semi_bold</item>
     </style>
 
+    <style name="StyleTitle14Supplementary" parent="StyleTitle14">
+        <item name="android:textColor">@color/second_text_color</item>
+        <item name="android:fontFamily">@font/montserrat_regular</item>
+    </style>
+
     <style name="StyleTitle20" parent="StyleTitle14">
         <item name="android:textSize">@dimen/text_title_size</item>
         <item name="android:textColor">@color/title_text_color</item>
