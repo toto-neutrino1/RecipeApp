@@ -36,17 +36,16 @@
                 android:text="Бургер с грибами и сыром"
                 app:layout_constraintBottom_toBottomOf="@id/ivTitleRecipeImage"
                 app:layout_constraintStart_toStartOf="parent" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
             android:id="@+id/tvTitleIngredientsText"
-            style="@style/StyleTitle20"
+            style="@style/StyleTitle20Supplementary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/normal_100"
             android:layout_marginVertical="@dimen/normal_100"
-            android:paddingHorizontal="@dimen/zero_size"
-            android:paddingVertical="@dimen/zero_size"
             android:text="@string/title_ingredients" />
 
         <androidx.recyclerview.widget.RecyclerView
@@ -54,20 +53,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/normal_100"
-            android:paddingTop="@dimen/normal_75"
+            android:background="@drawable/shape_rounded_recipe"
+            android:paddingTop="@dimen/small_40"
             android:paddingBottom="@dimen/normal_50"
             app:layoutManager="LinearLayoutManager"
             tools:listitem="@layout/item_ingredient" />
 
         <TextView
             android:id="@+id/tvTitleMethodText"
-            style="@style/StyleTitle20"
-            android:layout_width="wrap_content"
+            style="@style/StyleTitle20Supplementary"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/normal_100"
             android:layout_marginVertical="@dimen/normal_100"
-            android:paddingHorizontal="@dimen/zero_size"
-            android:paddingVertical="@dimen/zero_size"
             android:text="@string/title_method" />
 
         <androidx.recyclerview.widget.RecyclerView
@@ -75,9 +73,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/normal_100"
-            android:paddingBottom="@dimen/small_40"
+            android:background="@drawable/shape_rounded_recipe"
+            android:paddingVertical="@dimen/small_40"
             app:layoutManager="LinearLayoutManager"
             tools:listitem="@layout/item_method" />
 
     </LinearLayout>
+
 </androidx.core.widget.NestedScrollView>

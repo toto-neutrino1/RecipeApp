@@ -15,7 +15,6 @@
             android:id="@+id/ivTitleListRecipesImage"
             android:layout_width="match_parent"
             android:layout_height="@dimen/big_128"
-            android:contentDescription="@string/cont_descr_iv_recipes_burgers"
             android:scaleType="centerCrop"
             android:src="@drawable/bcg_recipes_list"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -42,8 +41,6 @@
         android:layout_marginHorizontal="@dimen/normal_50"
         app:layoutManager="LinearLayoutManager"
         tools:itemCount="6"
-        tools:listitem="@layout/item_list_recipes">
-
-    </androidx.recyclerview.widget.RecyclerView>
+        tools:listitem="@layout/item_list_recipes"/>
 
 </LinearLayout>

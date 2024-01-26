@@ -60,14 +60,9 @@ class RecipeFragment : Fragment() {
 
         with(binding.ivTitleRecipeImage) {
             try {
-                setImageDrawable(
-                    Drawable.createFromStream(
-                        context?.assets?.open(
-                            recipe?.imageUrl ?: "burger.png"
-                        ),
-                        null
-                    )
-                )
+                val inputStream = context?.assets?.open(recipe?.imageUrl ?: "burger.png")
+                val drawable = Drawable.createFromStream(inputStream, null)
+                setImageDrawable(drawable)
             } catch (e: Exception) {
                 Log.e(
                     "${context?.getString(R.string.asset_error)}",
@@ -91,6 +86,7 @@ class RecipeFragment : Fragment() {
         with(binding) {
             rvIngredients.adapter = ingredientsAdapter
             rvMethod.adapter = methodAdapter
+
             rvIngredients.addItemDecoration(ItemDecorationDivider(drawable))
             rvMethod.addItemDecoration(ItemDecorationDivider(drawable))
         }

@@ -44,11 +44,9 @@ class RecipesListAdapter(
         viewHolder.tvListRecipesName.text = dataset[position].title
         try {
             with(viewHolder.ivListRecipesImage) {
-                setImageDrawable(
-                    Drawable.createFromStream(
-                        fragment.context?.assets?.open(dataset[position].imageUrl), null
-                    )
-                )
+                val inputStream = fragment.context?.assets?.open(dataset[position].imageUrl)
+                val drawable = Drawable.createFromStream(inputStream, null)
+                setImageDrawable(drawable)
 
                 contentDescription =
                     "${fragment.context?.getString(R.string.cont_descr_iv_recipe)}" +

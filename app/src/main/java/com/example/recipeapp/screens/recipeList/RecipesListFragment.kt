@@ -64,14 +64,9 @@ class RecipesListFragment : Fragment() {
 
         with(binding.ivTitleListRecipesImage) {
             try {
-                setImageDrawable(
-                    Drawable.createFromStream(
-                        context?.assets?.open(
-                            categoryImageUrl ?: "burger.png"
-                        ),
-                        null
-                    )
-                )
+                val inputStream = context?.assets?.open(categoryImageUrl ?: "burger.png")
+                val drawable = Drawable.createFromStream(inputStream,null)
+                setImageDrawable(drawable)
             } catch (e: Exception) {
                 Log.e(
                     "${context?.getString(R.string.asset_error)}",
