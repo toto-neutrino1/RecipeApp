@@ -50,8 +50,6 @@ class RecipeFragment : Fragment() {
                 SDK_INT >= TIRAMISU -> it.getParcelable(ARG_RECIPE, Recipe::class.java)
                 else -> it.getParcelable(ARG_RECIPE)
             }
-
-            binding.tvTitleRecipeText.text = recipe?.title
         }
     }
 
