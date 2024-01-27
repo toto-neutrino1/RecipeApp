@@ -1,4 +1,4 @@
-package com.example.recipeapp
+package com.example.recipeapp.screens.recipeList
 
 import android.graphics.drawable.Drawable
 import android.os.Bundle
@@ -10,12 +10,14 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
+import com.example.recipeapp.R
 import com.example.recipeapp.data.ARG_CATEGORY_ID
 import com.example.recipeapp.data.ARG_CATEGORY_IMAGE_URL
 import com.example.recipeapp.data.ARG_CATEGORY_NAME
 import com.example.recipeapp.data.ARG_RECIPE
 import com.example.recipeapp.data.STUB
 import com.example.recipeapp.databinding.FragmentListRecipesBinding
+import com.example.recipeapp.screens.recipe.RecipeFragment
 
 class RecipesListFragment : Fragment() {
 
@@ -62,23 +64,18 @@ class RecipesListFragment : Fragment() {
 
         with(binding.ivTitleListRecipesImage) {
             try {
-                setImageDrawable(
-                    Drawable.createFromStream(
-                        context?.assets?.open(
-                            categoryImageUrl ?: "burger.png"
-                        ),
-                        null
-                    )
-                )
+                val inputStream = context?.assets?.open(categoryImageUrl ?: "burger.png")
+                val drawable = Drawable.createFromStream(inputStream,null)
+                setImageDrawable(drawable)
             } catch (e: Exception) {
                 Log.e(
-                    "${context?.getString(com.example.recipeapp.R.string.asset_error)}",
+                    "${context?.getString(R.string.asset_error)}",
                     "${e.printStackTrace()}"
                 )
             }
 
             contentDescription =
-                "${context?.getString(com.example.recipeapp.R.string.cont_descr_iv_list_recipes)}" +
+                "${context?.getString(R.string.cont_descr_iv_list_recipes)}" +
                         "$categoryName"
         }
     }

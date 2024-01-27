@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".RecipesListFragment">
+    tools:context=".screens.recipeList.RecipesListFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -15,7 +15,6 @@
             android:id="@+id/ivTitleListRecipesImage"
             android:layout_width="match_parent"
             android:layout_height="@dimen/big_128"
-            android:contentDescription="@string/cont_descr_iv_recipes_burgers"
             android:scaleType="centerCrop"
             android:src="@drawable/bcg_recipes_list"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -26,12 +25,14 @@
             style="@style/StyleTitle20"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/normal_100"
+            android:layout_marginHorizontal="@dimen/normal_100"
             android:layout_marginBottom="@dimen/normal_100"
             android:background="@drawable/shape_rounded_name"
-            android:text="@string/title_burgers"
+            app:layout_constrainedWidth="true"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="@string/title_burgers" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -42,8 +43,6 @@
         android:layout_marginHorizontal="@dimen/normal_50"
         app:layoutManager="LinearLayoutManager"
         tools:itemCount="6"
-        tools:listitem="@layout/item_list_recipes">
-
-    </androidx.recyclerview.widget.RecyclerView>
+        tools:listitem="@layout/item_recipe" />
 
 </LinearLayout>

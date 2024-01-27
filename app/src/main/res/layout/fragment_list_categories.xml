@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".CategoriesListFragment">
+    tools:context=".screens.categoriesList.CategoriesListFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -13,7 +13,7 @@
 
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/big_112"
             android:contentDescription="@string/cont_descr_iv_categories_main"
             android:scaleType="centerCrop"
             android:src="@drawable/bcg_categories"

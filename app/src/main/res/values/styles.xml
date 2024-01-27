@@ -14,11 +14,26 @@
         <item name="android:fontFamily">@font/montserrat_alternates_semi_bold</item>
     </style>
 
+    <style name="StyleTitle14Supplementary" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">@dimen/text_main_size</item>
+        <item name="android:textColor">@color/second_text_color</item>
+        <item name="android:fontFamily">@font/montserrat_regular</item>
+    </style>
+
+    <style name="StyleTitle14SupplementaryCaps" parent="StyleTitle14Supplementary">
+        <item name="textAllCaps">true</item>
+    </style>
+
     <style name="StyleTitle20" parent="StyleTitle14">
         <item name="android:textSize">@dimen/text_title_size</item>
         <item name="android:textColor">@color/title_text_color</item>
         <item name="android:paddingVertical">@dimen/small_100</item>
         <item name="android:paddingHorizontal">@dimen/small_100</item>
+    </style>
+
+    <style name="StyleTitle20Supplementary" parent="StyleTitle14">
+        <item name="android:textSize">@dimen/text_title_size</item>
+        <item name="android:textColor">@color/title_text_color</item>
     </style>
 
     <style name="StyleNavButton" parent="Widget.Material3.Button">

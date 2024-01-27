@@ -1,7 +1,6 @@
-package com.example.recipeapp
+package com.example.recipeapp.screens.categoriesList
 
 import android.os.Bundle
-import android.text.TextUtils.replace
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -9,11 +8,13 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
+import com.example.recipeapp.R
 import com.example.recipeapp.data.ARG_CATEGORY_ID
 import com.example.recipeapp.data.ARG_CATEGORY_IMAGE_URL
 import com.example.recipeapp.data.ARG_CATEGORY_NAME
 import com.example.recipeapp.data.STUB
 import com.example.recipeapp.databinding.FragmentListCategoriesBinding
+import com.example.recipeapp.screens.recipeList.RecipesListFragment
 
 class CategoriesListFragment : Fragment() {
     private var _binding: FragmentListCategoriesBinding? = null
