@@ -28,13 +28,15 @@
             <TextView
                 android:id="@+id/tvTitleRecipeText"
                 style="@style/StyleTitle20"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/normal_100"
                 android:layout_marginBottom="@dimen/normal_100"
                 android:background="@drawable/shape_rounded_name"
+                app:layout_constrainedWidth="true"
                 app:layout_constraintBottom_toBottomOf="@id/ivTitleRecipeImage"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 tools:text="Бургер с грибами и сыромfffffffffffffffffffffffffffffffffffffffffff" />
 
