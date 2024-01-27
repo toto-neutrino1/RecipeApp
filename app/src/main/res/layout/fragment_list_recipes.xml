@@ -28,9 +28,9 @@
             android:layout_marginStart="@dimen/normal_100"
             android:layout_marginBottom="@dimen/normal_100"
             android:background="@drawable/shape_rounded_name"
-            android:text="@string/title_burgers"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="@string/title_burgers" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -41,6 +41,6 @@
         android:layout_marginHorizontal="@dimen/normal_50"
         app:layoutManager="LinearLayoutManager"
         tools:itemCount="6"
-        tools:listitem="@layout/item_list_recipes"/>
+        tools:listitem="@layout/item_recipe" />
 
 </LinearLayout>

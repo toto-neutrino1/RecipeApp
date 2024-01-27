@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="@dimen/normal_75"
@@ -8,22 +9,21 @@
 
     <TextView
         android:id="@+id/tvIngredientNameText"
-        style="@style/StyleTitle14Supplementary"
+        style="@style/StyleTitle14SupplementaryCaps"
         android:layout_width="@dimen/big_87"
         android:layout_height="wrap_content"
-        android:text="Подсолнечное масло"
-        android:textAllCaps="true"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Подсолнечное масло" />
 
     <TextView
         android:id="@+id/tvIngredientQuantityText"
-        style="@style/StyleTitle14Supplementary"
-        android:layout_width="wrap_content"
+        style="@style/StyleTitle14SupplementaryCaps"
+        android:layout_width="@dimen/big_64"
         android:layout_height="wrap_content"
-        android:text="5 С. Ложек"
-        android:textAllCaps="true"
+        android:gravity="end"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="5 С. Ложек ааааааааа ааааааddddddd ааааааааааssssssssа" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

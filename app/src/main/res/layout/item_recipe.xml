@@ -16,7 +16,7 @@
         <ImageView
             android:id="@+id/ivListRecipesImage"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/big_100"
+            android:layout_height="@dimen/big_50"
             android:scaleType="centerCrop"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

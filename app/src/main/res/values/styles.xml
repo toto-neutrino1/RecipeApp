@@ -20,6 +20,10 @@
         <item name="android:fontFamily">@font/montserrat_regular</item>
     </style>
 
+    <style name="StyleTitle14SupplementaryCaps" parent="StyleTitle14Supplementary">
+        <item name="textAllCaps">true</item>
+    </style>
+
     <style name="StyleTitle20" parent="StyleTitle14">
         <item name="android:textSize">@dimen/text_title_size</item>
         <item name="android:textColor">@color/title_text_color</item>

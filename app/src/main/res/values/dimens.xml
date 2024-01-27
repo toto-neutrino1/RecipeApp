@@ -9,6 +9,7 @@
     <dimen name="normal_125">20dp</dimen>
 
     <dimen name="big_50">100dp</dimen>
+    <dimen name="big_64">129dp</dimen>
     <dimen name="big_65">130dp</dimen>
     <dimen name="big_82">164dp</dimen>
     <dimen name="big_87">175dp</dimen>
