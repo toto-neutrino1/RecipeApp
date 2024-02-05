@@ -5,6 +5,7 @@
     <string name="title_burgers" translatable="false">Бургеры</string>
     <string name="title_ingredients" translatable="false">Ингредиенты</string>
     <string name="title_method" translatable="false">Способ приготовления</string>
+    <string name="title_portions" translatable="false">Порции:</string>
     <string name="cont_descr_iv_categories_main" translatable="false">Изображение раздел категории</string>
     <string name="cont_descr_iv_category" translatable="false">Изображение категории</string>
     <string name="cont_descr_iv_list_recipes" translatable="false">Изображение списка рецептов</string>

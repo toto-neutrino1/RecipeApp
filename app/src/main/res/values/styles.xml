@@ -24,6 +24,12 @@
         <item name="textAllCaps">true</item>
     </style>
 
+    <style name="StyleTitle16" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">@dimen/text_subtitle_size</item>
+        <item name="android:textColor">@color/subtitle_text_color</item>
+        <item name="android:fontFamily">@font/montserrat_semi_bold</item>
+    </style>
+
     <style name="StyleTitle20" parent="StyleTitle14">
         <item name="android:textSize">@dimen/text_title_size</item>
         <item name="android:textColor">@color/title_text_color</item>

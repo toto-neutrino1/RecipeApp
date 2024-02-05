@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SeekBar
 import androidx.core.content.res.ResourcesCompat
 import com.example.recipeapp.R
 import com.example.recipeapp.data.ARG_RECIPE
@@ -55,6 +56,7 @@ class RecipeFragment : Fragment() {
 
     private fun initUI() {
         binding.tvTitleRecipeText.text = recipe?.title
+        binding.tvPortionsQuantity.text = "1"
 
         with(binding.ivTitleRecipeImage) {
             try {
@@ -82,6 +84,22 @@ class RecipeFragment : Fragment() {
         val methodAdapter = MethodAdapter(recipe?.method ?: listOf())
 
         with(binding) {
+            sbPortionsQuantity.setOnSeekBarChangeListener(
+                object : SeekBar.OnSeekBarChangeListener {
+                    override fun onProgressChanged(
+                        seekBar: SeekBar?, progress: Int, fromUser: Boolean
+                    ) {
+                        ingredientsAdapter.updateIngredients(progress)
+                        tvPortionsQuantity.text = "$progress"
+                        rvIngredients.adapter?.notifyDataSetChanged()
+                    }
+
+                    override fun onStartTrackingTouch(seekBar: SeekBar?) {}
+
+                    override fun onStopTrackingTouch(seekBar: SeekBar?) {}
+                }
+            )
+
             rvIngredients.adapter = ingredientsAdapter
             rvMethod.adapter = methodAdapter
 

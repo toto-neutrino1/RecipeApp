@@ -20,10 +20,13 @@
     <dimen name="small_10">1dp</dimen>
     <dimen name="small_20">2dp</dimen>
     <dimen name="small_40">4dp</dimen>
+    <dimen name="small_60">6dp</dimen>
     <dimen name="small_100">10dp</dimen>
 
     <!-- text size -->
     <dimen name="text_second_size">12sp</dimen>
     <dimen name="text_main_size">14sp</dimen>
+    <dimen name="text_subtitle_size">16sp</dimen>
     <dimen name="text_title_size">20sp</dimen>
+
 </resources>
