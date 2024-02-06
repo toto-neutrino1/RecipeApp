@@ -5,7 +5,7 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class Ingredient(
-    val quantity: String,
+    var quantity: String,
     val unitOfMeasure: String,
     val description: String,
 ) : Parcelable

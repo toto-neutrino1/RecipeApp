@@ -65,7 +65,7 @@ class RecipesListFragment : Fragment() {
         with(binding.ivTitleListRecipesImage) {
             try {
                 val inputStream = context?.assets?.open(categoryImageUrl ?: "burger.png")
-                val drawable = Drawable.createFromStream(inputStream,null)
+                val drawable = Drawable.createFromStream(inputStream, null)
                 setImageDrawable(drawable)
             } catch (e: Exception) {
                 Log.e(
@@ -75,16 +75,13 @@ class RecipesListFragment : Fragment() {
             }
 
             contentDescription =
-                "${context?.getString(R.string.cont_descr_iv_list_recipes)}" +
-                        "$categoryName"
+                "${context?.getString(R.string.cont_descr_iv_list_recipes)} $categoryName"
         }
     }
 
     private fun initRecycler() {
         val recipesListAdapter =
-            RecipesListAdapter(
-                dataset = STUB.getRecipesByCategoryId(categoryId ?: 0), this
-            )
+            RecipesListAdapter(dataset = STUB.getRecipesByCategoryId(categoryId ?: 0))
 
         recipesListAdapter.setOnItemClickListener(
             object : RecipesListAdapter.OnItemClickListener {

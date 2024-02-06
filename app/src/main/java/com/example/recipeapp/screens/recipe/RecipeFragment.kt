@@ -35,6 +35,7 @@ class RecipeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         initInputBundleData()
         initUI()
         initRecyclers()
@@ -55,8 +56,11 @@ class RecipeFragment : Fragment() {
     }
 
     private fun initUI() {
-        binding.tvTitleRecipeText.text = recipe?.title
-        binding.tvPortionsQuantity.text = "1"
+        with(binding) {
+            tvTitleRecipeText.text = recipe?.title
+            tvPortionsQuantity.text = "${recipe?.numOfPortions ?: 1}"
+            sbPortionsQuantity.progress = recipe?.numOfPortions ?: 1
+        }
 
         with(binding.ivTitleRecipeImage) {
             try {
@@ -71,8 +75,7 @@ class RecipeFragment : Fragment() {
             }
 
             contentDescription =
-                "${context?.getString(R.string.cont_descr_iv_recipe)}" +
-                        "${recipe?.title}"
+                "${context?.getString(R.string.cont_descr_iv_recipe)} ${recipe?.title}"
         }
     }
 
@@ -80,7 +83,9 @@ class RecipeFragment : Fragment() {
         val drawable =
             ResourcesCompat.getDrawable(resources, R.drawable.divider_item_decoration, null)
 
-        val ingredientsAdapter = IngredientsAdapter(recipe?.ingredients ?: listOf())
+        val ingredientsAdapter = IngredientsAdapter(
+            recipe?.ingredients ?: listOf(), recipe?.numOfPortions ?: 1
+        )
         val methodAdapter = MethodAdapter(recipe?.method ?: listOf())
 
         with(binding) {
@@ -91,6 +96,7 @@ class RecipeFragment : Fragment() {
                     ) {
                         ingredientsAdapter.updateIngredients(progress)
                         tvPortionsQuantity.text = "$progress"
+                        recipe?.numOfPortions = progress
                         rvIngredients.adapter?.notifyDataSetChanged()
                     }
 
