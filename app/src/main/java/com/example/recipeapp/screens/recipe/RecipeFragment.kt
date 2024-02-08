@@ -97,7 +97,6 @@ class RecipeFragment : Fragment() {
                         ingredientsAdapter.updateIngredients(progress)
                         tvPortionsQuantity.text = "$progress"
                         recipe?.numOfPortions = progress
-                        rvIngredients.adapter?.notifyDataSetChanged()
                     }
 
                     override fun onStartTrackingTouch(seekBar: SeekBar?) {}
