@@ -14,7 +14,6 @@ import com.example.recipeapp.model.Recipe
 
 class RecipesListAdapter(
     private val dataset: List<Recipe>,
-    private val fragment: RecipesListFragment
 ) : RecyclerView.Adapter<RecipesListAdapter.RecipesListViewHolder>() {
 
     interface OnItemClickListener {
@@ -44,17 +43,18 @@ class RecipesListAdapter(
         viewHolder.tvListRecipesName.text = dataset[position].title
         try {
             with(viewHolder.ivListRecipesImage) {
-                val inputStream = fragment.context?.assets?.open(dataset[position].imageUrl)
+                val inputStream =
+                    viewHolder.itemView.context.assets.open(dataset[position].imageUrl)
                 val drawable = Drawable.createFromStream(inputStream, null)
                 setImageDrawable(drawable)
 
                 contentDescription =
-                    "${fragment.context?.getString(R.string.cont_descr_iv_recipe)}" +
-                            "${dataset[position].title}"
+                    viewHolder.itemView.context.getString(R.string.cont_descr_iv_recipe) +
+                            dataset[position].title
             }
         } catch (e: Exception) {
             Log.e(
-                "${fragment.context?.getString(R.string.asset_error)}",
+                viewHolder.itemView.context.getString(R.string.asset_error),
                 "${e.printStackTrace()}"
             )
         }

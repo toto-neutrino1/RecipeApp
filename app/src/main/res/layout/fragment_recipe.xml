@@ -42,14 +42,51 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <TextView
-            android:id="@+id/tvTitleIngredientsText"
-            style="@style/StyleTitle20Supplementary"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/normal_100"
-            android:layout_marginVertical="@dimen/normal_100"
-            android:text="@string/title_ingredients" />
+            android:layout_marginVertical="@dimen/normal_100">
+
+            <TextView
+                android:id="@+id/tvTitleIngredientsText"
+                style="@style/StyleTitle20Supplementary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/title_ingredients"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvTitlePortionsText"
+                style="@style/StyleTitle16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/small_60"
+                android:text="@string/title_portions"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvTitleIngredientsText" />
+
+            <TextView
+                android:id="@+id/tvPortionsQuantity"
+                style="@style/StyleTitle16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/small_60"
+                app:layout_constraintStart_toEndOf="@id/tvTitlePortionsText"
+                app:layout_constraintTop_toTopOf="@id/tvTitlePortionsText"
+                tools:text="3" />
+
+            <SeekBar
+                android:id="@+id/sbPortionsQuantity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:max="5"
+                android:min="1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvPortionsQuantity" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvIngredients"

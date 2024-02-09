@@ -42,7 +42,7 @@ class CategoriesListFragment : Fragment() {
 
     private fun initRecycler() {
         val categoriesListAdapter =
-            CategoriesListAdapter(dataset = STUB.getCategories(), fragment = this)
+            CategoriesListAdapter(dataset = STUB.getCategories())
 
         categoriesListAdapter.setOnItemClickListener(
             object : CategoriesListAdapter.OnItemClickListener {

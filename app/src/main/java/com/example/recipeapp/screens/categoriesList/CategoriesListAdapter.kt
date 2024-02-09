@@ -14,7 +14,6 @@ import com.example.recipeapp.model.Category
 
 class CategoriesListAdapter(
     private val dataset: List<Category>,
-    private val fragment: CategoriesListFragment
 ) : RecyclerView.Adapter<CategoriesListAdapter.CategoriesListViewHolder>() {
 
     interface OnItemClickListener {
@@ -43,23 +42,24 @@ class CategoriesListAdapter(
 
     override fun onBindViewHolder(viewHolder: CategoriesListViewHolder, position: Int) {
         with(viewHolder) {
-            tvCategoryName.text = "${dataset[position].title}"
-            tvCategoryDescription.text = "${dataset[position].description}"
+            tvCategoryName.text = dataset[position].title
+            tvCategoryDescription.text = dataset[position].description
         }
 
         try {
             with(viewHolder.ivCategoryImage) {
-                val inputStream = fragment.context?.assets?.open(dataset[position].imageUrl)
+                val inputStream =
+                    viewHolder.itemView.context.assets.open(dataset[position].imageUrl)
                 val drawable = Drawable.createFromStream(inputStream, null)
                 setImageDrawable(drawable)
 
                 contentDescription =
-                    "${fragment.context?.getString(R.string.cont_descr_iv_category)} " +
-                            "${dataset[position].title}"
+                    "${viewHolder.itemView.context.getString(R.string.cont_descr_iv_category)} " +
+                            dataset[position].title
             }
         } catch (e: Exception) {
             Log.e(
-                "${fragment.context?.getString(R.string.asset_error)}",
+                viewHolder.itemView.context.getString(R.string.asset_error),
                 "${e.printStackTrace()}"
             )
         }
