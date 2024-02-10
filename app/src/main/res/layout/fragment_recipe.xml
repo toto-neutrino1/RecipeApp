@@ -79,12 +79,16 @@
 
             <SeekBar
                 android:id="@+id/sbPortionsQuantity"
+                style="@style/StyleSeekBar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:max="5"
                 android:min="1"
+                android:paddingStart="@dimen/zero_size"
+                android:paddingEnd="@dimen/zero_size"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvPortionsQuantity" />
+                app:layout_constraintTop_toBottomOf="@id/tvTitlePortionsText"
+                tools:progress="2" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -55,4 +55,10 @@
         <item name="android:foreground">?android:attr/selectableItemBackground</item>
         <item name="android:clickable">true</item>
     </style>
+
+    <style name="StyleSeekBar" parent="Widget.AppCompat.SeekBar">
+        <item name="android:progressDrawable">@drawable/shape_seekbar_progress</item>
+        <item name="android:thumb">@drawable/shape_seekbar_thumb</item>
+        <item name="android:thumbOffset">@dimen/zero_size</item>
+    </style>
 </resources>
