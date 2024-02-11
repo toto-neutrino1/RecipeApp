@@ -30,6 +30,7 @@ class RecipeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentRecipeBinding.inflate(inflater, container, false)
+        binding.sbPortionsQuantity.setPadding(0, 0, 0, 0)
 
         return binding.root
     }
