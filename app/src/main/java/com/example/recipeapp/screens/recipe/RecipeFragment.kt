@@ -59,6 +59,7 @@ class RecipeFragment : Fragment() {
         with(binding) {
             tvTitleRecipeText.text = recipe?.title
             tvPortionsQuantity.text = "${recipe?.numOfPortions ?: 1}"
+            sbPortionsQuantity.setPadding(0, 0, 0, 0)
             sbPortionsQuantity.progress = recipe?.numOfPortions ?: 1
         }
 
