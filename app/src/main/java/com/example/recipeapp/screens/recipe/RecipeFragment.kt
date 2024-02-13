@@ -69,7 +69,7 @@ class RecipeFragment : Fragment() {
                 ResourcesCompat.getDrawable(
                     resources,
                     if (recipe != null && recipe?.isInFavorites == true) R.drawable.ic_heart
-                    else R.drawable.ic_heart_empty_big,
+                    else R.drawable.ic_heart_empty,
                     null
                 )
             )
@@ -77,7 +77,7 @@ class RecipeFragment : Fragment() {
             setOnClickListener {
                 if (recipe != null && recipe?.isInFavorites == true) {
                     setImageDrawable(
-                        ResourcesCompat.getDrawable(resources, R.drawable.ic_heart_empty_big, null)
+                        ResourcesCompat.getDrawable(resources, R.drawable.ic_heart_empty, null)
                     )
                     recipe?.isInFavorites = false
                 } else {
