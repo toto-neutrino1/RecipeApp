@@ -1,5 +1,6 @@
 package com.example.recipeapp.screens.recipe
 
+import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.os.Build.VERSION.SDK_INT
 import android.os.Build.VERSION_CODES.TIRAMISU
@@ -61,6 +62,31 @@ class RecipeFragment : Fragment() {
             tvPortionsQuantity.text = "${recipe?.numOfPortions ?: 1}"
             sbPortionsQuantity.setPadding(0, 0, 0, 0)
             sbPortionsQuantity.progress = recipe?.numOfPortions ?: 1
+        }
+
+        with(binding.ibRecipeFavoritesBtn) {
+            setImageDrawable(
+                ResourcesCompat.getDrawable(
+                    resources,
+                    if (recipe != null && recipe?.isInFavorites == true) R.drawable.ic_heart
+                    else R.drawable.ic_heart_empty_big,
+                    null
+                )
+            )
+
+            setOnClickListener {
+                if (recipe != null && recipe?.isInFavorites == true) {
+                    setImageDrawable(
+                        ResourcesCompat.getDrawable(resources, R.drawable.ic_heart_empty_big, null)
+                    )
+                    recipe?.isInFavorites = false
+                } else {
+                    setImageDrawable(
+                        ResourcesCompat.getDrawable(resources, R.drawable.ic_heart, null)
+                    )
+                    recipe?.isInFavorites = true
+                }
+            }
         }
 
         with(binding.ivTitleRecipeImage) {
