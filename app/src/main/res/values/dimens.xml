@@ -2,11 +2,13 @@
 <resources>
     <!-- margin, paddings -->
     <dimen name="zero_size">0dp</dimen>
+
     <dimen name="normal_50">8dp</dimen>
     <dimen name="normal_75">12dp</dimen>
     <dimen name="normal_100">16dp</dimen>
     <dimen name="normal_112">18dp</dimen>
     <dimen name="normal_125">20dp</dimen>
+    <dimen name="normal_250">40dp</dimen>
 
     <dimen name="big_50">100dp</dimen>
     <dimen name="big_64">129dp</dimen>
