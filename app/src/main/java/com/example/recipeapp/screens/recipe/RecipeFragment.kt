@@ -1,6 +1,6 @@
 package com.example.recipeapp.screens.recipe
 
-import android.graphics.Color
+import android.content.Context
 import android.graphics.drawable.Drawable
 import android.os.Build.VERSION.SDK_INT
 import android.os.Build.VERSION_CODES.TIRAMISU
@@ -14,6 +14,8 @@ import android.widget.SeekBar
 import androidx.core.content.res.ResourcesCompat
 import com.example.recipeapp.R
 import com.example.recipeapp.data.ARG_RECIPE
+import com.example.recipeapp.data.SHARED_FAVORITES_IDS_KEY
+import com.example.recipeapp.data.SHARED_FAVORITES_IDS_FILE_NAME
 import com.example.recipeapp.databinding.FragmentRecipeBinding
 import com.example.recipeapp.model.Recipe
 
@@ -64,6 +66,10 @@ class RecipeFragment : Fragment() {
             sbPortionsQuantity.progress = recipe?.numOfPortions ?: 1
         }
 
+        val favoritesIdsStringSet = getFavorites()
+
+        if ("${recipe?.id}" in favoritesIdsStringSet) recipe?.isInFavorites = true
+
         with(binding.ibRecipeFavoritesBtn) {
             setImageDrawable(
                 ResourcesCompat.getDrawable(
@@ -76,16 +82,20 @@ class RecipeFragment : Fragment() {
 
             setOnClickListener {
                 if (recipe != null && recipe?.isInFavorites == true) {
+                    favoritesIdsStringSet.remove("${recipe?.id}")
                     setImageDrawable(
                         ResourcesCompat.getDrawable(resources, R.drawable.ic_heart_empty, null)
                     )
                     recipe?.isInFavorites = false
                 } else {
+                    favoritesIdsStringSet.add("${recipe?.id}")
                     setImageDrawable(
                         ResourcesCompat.getDrawable(resources, R.drawable.ic_heart, null)
                     )
                     recipe?.isInFavorites = true
                 }
+
+                saveFavorites(favoritesIdsStringSet)
             }
         }
 
@@ -138,5 +148,27 @@ class RecipeFragment : Fragment() {
             rvIngredients.addItemDecoration(ItemDecorationDivider(drawable))
             rvMethod.addItemDecoration(ItemDecorationDivider(drawable))
         }
+    }
+
+    private fun saveFavorites(recipeIds: Set<String>) {
+        val sharedPrefs = activity?.getSharedPreferences(
+            SHARED_FAVORITES_IDS_FILE_NAME, Context.MODE_PRIVATE
+        )
+        if (sharedPrefs != null) {
+            with(sharedPrefs.edit()) {
+                putStringSet(SHARED_FAVORITES_IDS_KEY, recipeIds)
+                apply()
+            }
+        }
+    }
+
+    private fun getFavorites(): MutableSet<String> {
+        val sharedPrefs = activity?.getSharedPreferences(
+            SHARED_FAVORITES_IDS_FILE_NAME, Context.MODE_PRIVATE
+        )
+        val setOfFavoritesIds =
+            sharedPrefs?.getStringSet(SHARED_FAVORITES_IDS_KEY, setOf()) ?: setOf()
+
+        return HashSet(setOfFavoritesIds)
     }
 }
