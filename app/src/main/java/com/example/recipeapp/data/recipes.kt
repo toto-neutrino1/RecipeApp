@@ -273,4 +273,7 @@ object STUB {
 
     fun getRecipeById(recipeId: Int, categoryId: Int) =
         getRecipesByCategoryId(categoryId).find { it.id == recipeId }
+
+    fun getRecipesByIds(idsSet: Set<Int>, categoryId: Int = 0) =
+        getRecipesByCategoryId(categoryId).filter { it.id in idsSet }.sortedBy { it.id }
 }
