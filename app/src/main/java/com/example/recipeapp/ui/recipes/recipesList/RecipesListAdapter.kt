@@ -1,15 +1,13 @@
-package com.example.recipeapp.screens.recipeList
+package com.example.recipeapp.ui.recipes.recipesList
 
 import android.graphics.drawable.Drawable
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
-import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.recipeapp.R
+import com.example.recipeapp.databinding.ItemRecipeBinding
 import com.example.recipeapp.model.Recipe
 
 class RecipesListAdapter(
@@ -27,9 +25,7 @@ class RecipesListAdapter(
     }
 
     class RecipesListViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val cvListRecipesItem: CardView = view.findViewById(R.id.cvListRecipesItem)
-        val ivListRecipesImage: ImageView = view.findViewById(R.id.ivListRecipesImage)
-        val tvListRecipesName: TextView = view.findViewById(R.id.tvListRecipesName)
+        val binding = ItemRecipeBinding.bind(view)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecipesListViewHolder {
@@ -40,9 +36,9 @@ class RecipesListAdapter(
     }
 
     override fun onBindViewHolder(viewHolder: RecipesListViewHolder, position: Int) {
-        viewHolder.tvListRecipesName.text = dataset[position].title
+        viewHolder.binding.tvListRecipesName.text = dataset[position].title
         try {
-            with(viewHolder.ivListRecipesImage) {
+            with(viewHolder.binding.ivListRecipesImage) {
                 val inputStream =
                     viewHolder.itemView.context.assets.open(dataset[position].imageUrl)
                 val drawable = Drawable.createFromStream(inputStream, null)
@@ -59,7 +55,7 @@ class RecipesListAdapter(
             )
         }
 
-        viewHolder.cvListRecipesItem.setOnClickListener {
+        viewHolder.binding.cvListRecipesItem.setOnClickListener {
             itemClickListener?.onItemClick(dataset[position].id)
         }
     }
