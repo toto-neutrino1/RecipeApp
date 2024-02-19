@@ -7,8 +7,10 @@
     <string name="title_ingredients" translatable="false">Ингредиенты</string>
     <string name="title_method" translatable="false">Способ приготовления</string>
     <string name="cont_descr_iv_categories_main" translatable="false">Изображение раздел категории</string>
+    <string name="cont_descr_iv_favorites_main" translatable="false">Изображение раздел избранное</string>
     <string name="cont_descr_iv_category" translatable="false">Изображение категории</string>
     <string name="cont_descr_iv_list_recipes" translatable="false">Изображение списка рецептов</string>
     <string name="cont_descr_iv_recipe" translatable="false">Изображение рецепта</string>
     <string name="asset_error">asset error</string>
+    <string name="favorites_stub" translatable="false">Вы еще не добавили ни одного рецепта в избранное</string>
 </resources>
