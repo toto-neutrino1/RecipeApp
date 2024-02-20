@@ -1,4 +1,4 @@
-package com.example.recipeapp.screens.favorites
+package com.example.recipeapp.ui.recipes.favorites
 
 import android.content.Context
 import android.os.Bundle
@@ -15,8 +15,8 @@ import com.example.recipeapp.data.SHARED_FAVORITES_IDS_FILE_NAME
 import com.example.recipeapp.data.SHARED_FAVORITES_IDS_KEY
 import com.example.recipeapp.data.STUB
 import com.example.recipeapp.databinding.FragmentFavoritesBinding
-import com.example.recipeapp.screens.recipe.RecipeFragment
-import com.example.recipeapp.screens.recipeList.RecipesListAdapter
+import com.example.recipeapp.ui.recipes.recipe.RecipeFragment
+import com.example.recipeapp.ui.recipes.recipesList.RecipesListAdapter
 
 class FavoritesFragment : Fragment() {
     private var _binding: FragmentFavoritesBinding? = null

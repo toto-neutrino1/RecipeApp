@@ -1,4 +1,4 @@
-package com.example.recipeapp.screens.recipeList
+package com.example.recipeapp.ui.recipes.recipesList
 
 import android.graphics.drawable.Drawable
 import android.os.Bundle
@@ -17,7 +17,7 @@ import com.example.recipeapp.data.ARG_CATEGORY_NAME
 import com.example.recipeapp.data.ARG_RECIPE
 import com.example.recipeapp.data.STUB
 import com.example.recipeapp.databinding.FragmentListRecipesBinding
-import com.example.recipeapp.screens.recipe.RecipeFragment
+import com.example.recipeapp.ui.recipes.recipe.RecipeFragment
 
 class RecipesListFragment : Fragment() {
 

@@ -1,12 +1,12 @@
-package com.example.recipeapp.screens.recipe
+package com.example.recipeapp.ui.recipes.recipe
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.recipeapp.R
 import com.example.recipeapp.data.NUM_OF_INGREDIENT_MANTIS
+import com.example.recipeapp.databinding.ItemIngredientBinding
 import com.example.recipeapp.model.Ingredient
 import java.math.BigDecimal
 import java.math.RoundingMode
@@ -18,8 +18,7 @@ class IngredientsAdapter(
 ) : RecyclerView.Adapter<IngredientsAdapter.IngredientsViewHolder>() {
 
     class IngredientsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val tvIngredientNameText: TextView = view.findViewById(R.id.tvIngredientNameText)
-        val tvIngredientQuantityText: TextView = view.findViewById(R.id.tvIngredientQuantityText)
+        val binding = ItemIngredientBinding.bind(view)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): IngredientsViewHolder {
@@ -31,8 +30,8 @@ class IngredientsAdapter(
 
     override fun onBindViewHolder(holder: IngredientsViewHolder, position: Int) {
         with(holder) {
-            tvIngredientNameText.text = dataset[position].description
-            tvIngredientQuantityText.text =
+            binding.tvIngredientNameText.text = dataset[position].description
+            binding.tvIngredientQuantityText.text =
                 "${dataset[position].quantity} ${dataset[position].unitOfMeasure}"
         }
     }

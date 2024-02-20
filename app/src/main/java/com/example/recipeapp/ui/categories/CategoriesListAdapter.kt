@@ -1,15 +1,13 @@
-package com.example.recipeapp.screens.categoriesList
+package com.example.recipeapp.ui.categories
 
 import android.graphics.drawable.Drawable
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
-import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.recipeapp.R
+import com.example.recipeapp.databinding.ItemCategoryBinding
 import com.example.recipeapp.model.Category
 
 class CategoriesListAdapter(
@@ -27,10 +25,7 @@ class CategoriesListAdapter(
     }
 
     class CategoriesListViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val cvCategoryItem: CardView = view.findViewById(R.id.cvCategoryItem)
-        val tvCategoryName: TextView = view.findViewById(R.id.tvCategoryName)
-        val tvCategoryDescription: TextView = view.findViewById(R.id.tvCategoryDescription)
-        val ivCategoryImage: ImageView = view.findViewById(R.id.ivCategoryImage)
+        val binding = ItemCategoryBinding.bind(view)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoriesListViewHolder {
@@ -42,12 +37,12 @@ class CategoriesListAdapter(
 
     override fun onBindViewHolder(viewHolder: CategoriesListViewHolder, position: Int) {
         with(viewHolder) {
-            tvCategoryName.text = dataset[position].title
-            tvCategoryDescription.text = dataset[position].description
+            binding.tvCategoryName.text = dataset[position].title
+            binding.tvCategoryDescription.text = dataset[position].description
         }
 
         try {
-            with(viewHolder.ivCategoryImage) {
+            with(viewHolder.binding.ivCategoryImage) {
                 val inputStream =
                     viewHolder.itemView.context.assets.open(dataset[position].imageUrl)
                 val drawable = Drawable.createFromStream(inputStream, null)
@@ -64,7 +59,7 @@ class CategoriesListAdapter(
             )
         }
 
-        viewHolder.cvCategoryItem.setOnClickListener {
+        viewHolder.binding.cvCategoryItem.setOnClickListener {
             itemClickListener?.onItemClick(categoryId = dataset[position].id)
         }
     }

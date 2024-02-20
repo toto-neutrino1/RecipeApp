@@ -1,4 +1,4 @@
-package com.example.recipeapp.screens.recipe
+package com.example.recipeapp.ui.recipes.recipe
 
 import android.graphics.Canvas
 import android.graphics.Rect
