@@ -1,10 +1,10 @@
 package com.example.recipeapp.ui.recipes.recipe
 
 import androidx.lifecycle.ViewModel
+import com.example.recipeapp.model.Recipe
 
 data class RecipeUiState(
-    var categoryId: Int = 0,
-    var recipeId: Int = 0,
+    var recipe: Recipe? = null,
     var numOfPortions: Int = 1,
     var isInFavorites: Boolean = false
 )
