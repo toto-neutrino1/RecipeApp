@@ -36,9 +36,9 @@ class CategoriesListAdapter(
     }
 
     override fun onBindViewHolder(viewHolder: CategoriesListViewHolder, position: Int) {
-        with(viewHolder) {
-            binding.tvCategoryName.text = dataset[position].title
-            binding.tvCategoryDescription.text = dataset[position].description
+        with(viewHolder.binding) {
+            tvCategoryName.text = dataset[position].title
+            tvCategoryDescription.text = dataset[position].description
         }
 
         try {

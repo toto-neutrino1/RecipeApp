@@ -29,9 +29,9 @@ class IngredientsAdapter(
     }
 
     override fun onBindViewHolder(holder: IngredientsViewHolder, position: Int) {
-        with(holder) {
-            binding.tvIngredientNameText.text = dataset[position].description
-            binding.tvIngredientQuantityText.text =
+        with(holder.binding) {
+            tvIngredientNameText.text = dataset[position].description
+            tvIngredientQuantityText.text =
                 "${dataset[position].quantity} ${dataset[position].unitOfMeasure}"
         }
     }
