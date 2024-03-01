@@ -12,7 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.SeekBar
 import androidx.core.content.res.ResourcesCompat
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import com.example.recipeapp.R
 import com.example.recipeapp.data.ARG_RECIPE
 import com.example.recipeapp.data.SHARED_FAVORITES_IDS_KEY
@@ -28,7 +28,7 @@ class RecipeFragment : Fragment() {
         get() = _binding ?: throw IllegalArgumentException("FragmentRecipeBinding is null!")
 
     private var recipe: Recipe? = null
-    private val viewModel: RecipeViewModel by viewModels()
+    private val viewModel: RecipeViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
