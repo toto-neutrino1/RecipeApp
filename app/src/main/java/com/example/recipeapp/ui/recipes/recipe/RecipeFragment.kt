@@ -12,10 +12,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.SeekBar
 import androidx.core.content.res.ResourcesCompat
+import androidx.fragment.app.activityViewModels
 import com.example.recipeapp.R
 import com.example.recipeapp.data.ARG_RECIPE
 import com.example.recipeapp.data.SHARED_FAVORITES_IDS_KEY
 import com.example.recipeapp.data.SHARED_FAVORITES_IDS_FILE_NAME
+import com.example.recipeapp.data.TAG_RECIPE_VIEW_MODEL
 import com.example.recipeapp.databinding.FragmentRecipeBinding
 import com.example.recipeapp.model.Recipe
 
@@ -26,6 +28,7 @@ class RecipeFragment : Fragment() {
         get() = _binding ?: throw IllegalArgumentException("FragmentRecipeBinding is null!")
 
     private var recipe: Recipe? = null
+    private val viewModel: RecipeViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,11 +45,18 @@ class RecipeFragment : Fragment() {
         initInputBundleData()
         initUI()
         initRecyclers()
+        setLiveDataObserver()
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun setLiveDataObserver() {
+        viewModel.recipeUiState.observe(viewLifecycleOwner) {
+            Log.i(TAG_RECIPE_VIEW_MODEL, "${it.isInFavorites}")
+        }
     }
 
     private fun initInputBundleData() {
