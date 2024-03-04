@@ -271,8 +271,8 @@ object STUB {
 
     fun getRecipesByCategoryId(categoryId: Int) = if (categoryId == 0) burgerRecipes else listOf()
 
-    fun getRecipeById(recipeId: Int, categoryId: Int = 0) =
-        getRecipesByCategoryId(categoryId).find { it.id == recipeId }
+    fun getRecipeById(recipeId: Int) =
+        getRecipesByCategoryId(categoryId = 0).find { it.id == recipeId }
 
     fun getRecipesByIds(idsSet: Set<Int>, categoryId: Int = 0) =
         getRecipesByCategoryId(categoryId).filter { it.id in idsSet }.sortedBy { it.id }

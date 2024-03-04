@@ -12,29 +12,23 @@ import com.example.recipeapp.model.Recipe
 
 data class RecipeUiState(
     var recipe: Recipe? = null,
-    var numOfPortions: Int? = null,
+    var numOfPortions: Int = 1,
     var isInFavorites: Boolean = false
 )
 
 class RecipeViewModel(private val application: Application) : AndroidViewModel(application) {
     private val favoritesIdsStringSet = getFavorites()
 
-
-    private var _recipeUiState: MutableLiveData<RecipeUiState> = MutableLiveData()
+    private var _recipeUiState: MutableLiveData<RecipeUiState> = MutableLiveData(RecipeUiState())
     val recipeUiState: LiveData<RecipeUiState> = _recipeUiState
 
-    init {
-        _recipeUiState.value = RecipeUiState()
-    }
-
     fun loadRecipe(recipeId: Int?) {
+        // TODO("load from network")
         _recipeUiState.value?.let {
             if (recipeId != null) {
-                it.recipe = STUB.getRecipeById(recipeId = recipeId, categoryId = 0)
+                it.recipe = STUB.getRecipeById(recipeId = recipeId)
                 it.isInFavorites = "$recipeId" in favoritesIdsStringSet
             }
-
-            it.numOfPortions = it.numOfPortions ?: 1
         }
     }
 

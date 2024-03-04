@@ -68,7 +68,7 @@ class FavoritesFragment : Fragment() {
     }
 
     private fun openRecipeByRecipeId(recipeId: Int) {
-        val recipe = STUB.getRecipeById(recipeId, categoryId = 0)
+        val recipe = STUB.getRecipeById(recipeId)
         val bundle = bundleOf(ARG_RECIPE to recipe)
 
         parentFragmentManager.commit {
