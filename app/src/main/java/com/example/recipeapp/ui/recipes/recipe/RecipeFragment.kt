@@ -1,8 +1,6 @@
 package com.example.recipeapp.ui.recipes.recipe
 
-import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -88,18 +86,7 @@ class RecipeFragment : Fragment() {
             }
 
             with(binding.ivTitleRecipeImage) {
-                try {
-                    val inputStream =
-                        context?.assets?.open(recipeState.recipe?.imageUrl ?: "burger.png")
-                    val drawable = Drawable.createFromStream(inputStream, null)
-                    setImageDrawable(drawable)
-                } catch (e: Exception) {
-                    Log.e(
-                        "${context?.getString(R.string.asset_error)}",
-                        "${e.printStackTrace()}"
-                    )
-                }
-
+                setImageDrawable(recipeState.recipeImage)
                 contentDescription =
                     "${context?.getString(R.string.cont_descr_iv_recipe)} ${recipeState.recipe?.title}"
             }
