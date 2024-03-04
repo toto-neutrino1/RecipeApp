@@ -99,7 +99,7 @@ class RecipeFragment : Fragment() {
 
         viewModel.recipeUiState.value?.let {
             val ingredientsAdapter = IngredientsAdapter(
-                it.recipe?.ingredients ?: listOf(), it.numOfPortions ?: 1
+                it.recipe?.ingredients ?: listOf(), it.numOfPortions
             )
             val methodAdapter = MethodAdapter(it.recipe?.method ?: listOf())
 
