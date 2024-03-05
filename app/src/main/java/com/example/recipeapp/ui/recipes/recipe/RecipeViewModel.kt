@@ -49,7 +49,7 @@ class RecipeViewModel(private val application: Application) : AndroidViewModel(a
     }
 
     fun onFavoritesClicked() {
-        recipeUiState.value?.let {
+        _recipeUiState.value?.let {
             if (it.recipe != null && it.isInFavorites) {
                 favoritesIdsStringSet.remove("${it.recipe?.id}")
                 it.isInFavorites = false

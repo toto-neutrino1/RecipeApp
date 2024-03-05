@@ -35,7 +35,6 @@ class RecipeFragment : Fragment() {
 
         initInputBundleData()
         initUI()
-        initRecyclers()
     }
 
     override fun onDestroyView() {
@@ -90,14 +89,16 @@ class RecipeFragment : Fragment() {
                 contentDescription =
                     "${context?.getString(R.string.cont_descr_iv_recipe)} ${recipeState.recipe?.title}"
             }
+
+            initRecyclers(recipeState)
         }
     }
 
-    private fun initRecyclers() {
+    private fun initRecyclers(recipeUiState: RecipeUiState) {
         val drawable =
             ResourcesCompat.getDrawable(resources, R.drawable.divider_item_decoration, null)
 
-        viewModel.recipeUiState.value?.let {
+        recipeUiState.let {
             val ingredientsAdapter = IngredientsAdapter(
                 it.recipe?.ingredients ?: listOf(), it.numOfPortions
             )
