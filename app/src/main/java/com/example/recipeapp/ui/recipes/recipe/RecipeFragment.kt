@@ -111,8 +111,8 @@ class RecipeFragment : Fragment() {
                             seekBar: SeekBar?, progress: Int, fromUser: Boolean
                         ) {
                             ingredientsAdapter.updateIngredients(progress)
-                            tvPortionsQuantity.text = "$progress"
-                            it.recipe?.numOfPortions = progress
+                            viewModel.updateNumOfPortions(progress)
+                            tvPortionsQuantity.text = "${it.recipe?.numOfPortions ?: 1}"
                         }
 
                         override fun onStartTrackingTouch(seekBar: SeekBar?) {}

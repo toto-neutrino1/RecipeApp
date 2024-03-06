@@ -61,6 +61,10 @@ class RecipeViewModel(private val application: Application) : AndroidViewModel(a
         }
     }
 
+    fun updateNumOfPortions(numOfPortionsNew: Int) {
+        _recipeUiState.value?.recipe?.numOfPortions = numOfPortionsNew
+    }
+
     private fun getFavorites(): MutableSet<String> {
         val sharedPrefs = application.getSharedPreferences(
             SHARED_FAVORITES_IDS_FILE_NAME, Context.MODE_PRIVATE
