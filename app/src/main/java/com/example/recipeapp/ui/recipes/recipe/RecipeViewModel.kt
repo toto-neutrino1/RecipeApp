@@ -15,7 +15,6 @@ import com.example.recipeapp.model.Recipe
 
 data class RecipeUiState(
     var recipe: Recipe? = null,
-    var numOfPortions: Int = 1,
     var isInFavorites: Boolean = false,
     var recipeImage: Drawable? = null
 )
@@ -32,8 +31,6 @@ class RecipeViewModel(private val application: Application) : AndroidViewModel(a
             if (recipeId != null) {
                 it.recipe = STUB.getRecipeById(recipeId = recipeId)
                 it.isInFavorites = "$recipeId" in favoritesIdsStringSet
-
-                it.numOfPortions = it.recipe?.numOfPortions ?: 1
 
                 try {
                     val inputStream =
