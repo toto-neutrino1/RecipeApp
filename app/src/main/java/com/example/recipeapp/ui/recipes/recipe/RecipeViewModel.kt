@@ -33,6 +33,8 @@ class RecipeViewModel(private val application: Application) : AndroidViewModel(a
                 it.recipe = STUB.getRecipeById(recipeId = recipeId)
                 it.isInFavorites = "$recipeId" in favoritesIdsStringSet
 
+                it.numOfPortions = it.recipe?.numOfPortions ?: 1
+
                 try {
                     val inputStream =
                         application.assets?.open(it.recipe?.imageUrl ?: "burger.png")

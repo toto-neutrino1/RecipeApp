@@ -54,9 +54,9 @@ class RecipeFragment : Fragment() {
         viewModel.recipeUiState.observe(viewLifecycleOwner) { recipeState ->
             with(binding) {
                 tvTitleRecipeText.text = recipeState.recipe?.title
-                tvPortionsQuantity.text = "${recipeState.recipe?.numOfPortions ?: 1}"
+                tvPortionsQuantity.text = "${recipeState.numOfPortions}"
                 sbPortionsQuantity.setPadding(0, 0, 0, 0)
-                sbPortionsQuantity.progress = recipeState.recipe?.numOfPortions ?: 1
+                sbPortionsQuantity.progress = recipeState.numOfPortions
             }
 
             with(binding.ibRecipeFavoritesBtn) {
@@ -113,6 +113,7 @@ class RecipeFragment : Fragment() {
                             ingredientsAdapter.updateIngredients(progress)
                             tvPortionsQuantity.text = "$progress"
                             it.numOfPortions = progress
+                            it.recipe?.numOfPortions = it.numOfPortions
                         }
 
                         override fun onStartTrackingTouch(seekBar: SeekBar?) {}
