@@ -15,7 +15,6 @@ import com.example.recipeapp.model.Recipe
 
 data class RecipeUiState(
     var recipe: Recipe? = null,
-    var numOfPortions: Int = 1,
     var isInFavorites: Boolean = false,
     var recipeImage: Drawable? = null
 )
@@ -60,6 +59,10 @@ class RecipeViewModel(private val application: Application) : AndroidViewModel(a
 
             saveFavorites(favoritesIdsStringSet)
         }
+    }
+
+    fun updateNumOfPortions(numOfPortionsNew: Int) {
+        _recipeUiState.value?.recipe?.numOfPortions = numOfPortionsNew
     }
 
     private fun getFavorites(): MutableSet<String> {

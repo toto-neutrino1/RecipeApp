@@ -100,7 +100,7 @@ class RecipeFragment : Fragment() {
 
         recipeUiState.let {
             val ingredientsAdapter = IngredientsAdapter(
-                it.recipe?.ingredients ?: listOf(), it.numOfPortions
+                it.recipe?.ingredients ?: listOf(), it.recipe?.numOfPortions ?: 1
             )
             val methodAdapter = MethodAdapter(it.recipe?.method ?: listOf())
 
@@ -111,8 +111,8 @@ class RecipeFragment : Fragment() {
                             seekBar: SeekBar?, progress: Int, fromUser: Boolean
                         ) {
                             ingredientsAdapter.updateIngredients(progress)
-                            tvPortionsQuantity.text = "$progress"
-                            it.numOfPortions = progress
+                            viewModel.updateNumOfPortions(progress)
+                            tvPortionsQuantity.text = "${it.recipe?.numOfPortions ?: 1}"
                         }
 
                         override fun onStartTrackingTouch(seekBar: SeekBar?) {}
