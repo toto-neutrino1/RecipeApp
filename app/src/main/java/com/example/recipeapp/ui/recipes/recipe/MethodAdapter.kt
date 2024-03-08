@@ -8,7 +8,7 @@ import com.example.recipeapp.R
 import com.example.recipeapp.databinding.ItemMethodBinding
 
 class MethodAdapter(
-    private val dataset: List<String>
+    var dataset: List<String>
 ) : RecyclerView.Adapter<MethodAdapter.MethodViewHolder>() {
 
     class MethodViewHolder(view: View) : RecyclerView.ViewHolder(view) {

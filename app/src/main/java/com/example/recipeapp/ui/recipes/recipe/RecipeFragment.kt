@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SeekBar
+import android.widget.SeekBar.OnSeekBarChangeListener
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.activityViewModels
 import com.example.recipeapp.R
@@ -20,6 +21,9 @@ class RecipeFragment : Fragment() {
 
     private var recipeId: Int? = null
     private val viewModel: RecipeViewModel by activityViewModels()
+
+    private val ingredientsAdapter: IngredientsAdapter = IngredientsAdapter(listOf(), 1)
+    private val methodAdapter: MethodAdapter = MethodAdapter(listOf())
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -99,25 +103,19 @@ class RecipeFragment : Fragment() {
             ResourcesCompat.getDrawable(resources, R.drawable.divider_item_decoration, null)
 
         recipeUiState.let {
-            val ingredientsAdapter = IngredientsAdapter(
-                it.recipe?.ingredients ?: listOf(), it.recipe?.numOfPortions ?: 1
-            )
-            val methodAdapter = MethodAdapter(it.recipe?.method ?: listOf())
+            with(ingredientsAdapter) {
+                dataset = it.recipe?.ingredients ?: listOf()
+                quantity = it.recipe?.numOfPortions ?: 1
+            }
+
+            methodAdapter.dataset = it.recipe?.method ?: listOf()
 
             with(binding) {
                 sbPortionsQuantity.setOnSeekBarChangeListener(
-                    object : SeekBar.OnSeekBarChangeListener {
-                        override fun onProgressChanged(
-                            seekBar: SeekBar?, progress: Int, fromUser: Boolean
-                        ) {
-                            ingredientsAdapter.updateIngredients(progress)
-                            viewModel.updateNumOfPortions(progress)
-                            tvPortionsQuantity.text = "${it.recipe?.numOfPortions ?: 1}"
-                        }
-
-                        override fun onStartTrackingTouch(seekBar: SeekBar?) {}
-
-                        override fun onStopTrackingTouch(seekBar: SeekBar?) {}
+                    PortionSeekBarListener { progress ->
+                        ingredientsAdapter.updateIngredients(progress)
+                        viewModel.updateNumOfPortions(progress)
+                        tvPortionsQuantity.text = "${it.recipe?.numOfPortions ?: 1}"
                     }
                 )
 
@@ -129,4 +127,14 @@ class RecipeFragment : Fragment() {
             }
         }
     }
+}
+
+class PortionSeekBarListener(val onChangeIngredients: (Int) -> Unit) : OnSeekBarChangeListener {
+    override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+        onChangeIngredients(progress)
+    }
+
+    override fun onStartTrackingTouch(seekBar: SeekBar?) {}
+
+    override fun onStopTrackingTouch(seekBar: SeekBar?) {}
 }
