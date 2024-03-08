@@ -13,8 +13,8 @@ import java.math.RoundingMode
 import java.util.Locale
 
 class IngredientsAdapter(
-    private val dataset: List<Ingredient>,
-    private var quantity: Int = 1
+    var dataset: List<Ingredient>,
+    var quantity: Int = 1
 ) : RecyclerView.Adapter<IngredientsAdapter.IngredientsViewHolder>() {
 
     class IngredientsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
