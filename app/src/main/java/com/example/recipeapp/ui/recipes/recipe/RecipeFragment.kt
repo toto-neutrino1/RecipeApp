@@ -22,7 +22,7 @@ class RecipeFragment : Fragment() {
     private var recipeId: Int? = null
     private val viewModel: RecipeViewModel by activityViewModels()
 
-    private val ingredientsAdapter: IngredientsAdapter = IngredientsAdapter(listOf(), 1)
+    private val ingredientsAdapter: IngredientsAdapter = IngredientsAdapter(listOf())
     private val methodAdapter: MethodAdapter = MethodAdapter(listOf())
 
     override fun onCreateView(
@@ -103,18 +103,15 @@ class RecipeFragment : Fragment() {
             ResourcesCompat.getDrawable(resources, R.drawable.divider_item_decoration, null)
 
         recipeUiState.let {
-            with(ingredientsAdapter) {
-                dataset = it.recipe?.ingredients ?: listOf()
-                quantity = it.recipe?.numOfPortions ?: 1
-            }
+            ingredientsAdapter.dataset = it.recipe?.ingredients ?: listOf()
 
             methodAdapter.dataset = it.recipe?.method ?: listOf()
 
             with(binding) {
                 sbPortionsQuantity.setOnSeekBarChangeListener(
                     PortionSeekBarListener { progress ->
-                        ingredientsAdapter.updateIngredients(progress)
-                        viewModel.updateNumOfPortions(progress)
+                        viewModel.updateIngredientsAndNumOfPortions(progress)
+                        ingredientsAdapter.notifyUpdateIngredients()
                         tvPortionsQuantity.text = "${it.recipe?.numOfPortions ?: 1}"
                     }
                 )

@@ -8,10 +8,14 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.recipeapp.R
+import com.example.recipeapp.data.NUM_OF_INGREDIENT_MANTIS
 import com.example.recipeapp.data.SHARED_FAVORITES_IDS_FILE_NAME
 import com.example.recipeapp.data.SHARED_FAVORITES_IDS_KEY
 import com.example.recipeapp.data.STUB
 import com.example.recipeapp.model.Recipe
+import java.math.BigDecimal
+import java.math.RoundingMode
+import java.util.Locale
 
 data class RecipeUiState(
     var recipe: Recipe? = null,
@@ -61,8 +65,24 @@ class RecipeViewModel(private val application: Application) : AndroidViewModel(a
         }
     }
 
-    fun updateNumOfPortions(numOfPortionsNew: Int) {
-        _recipeUiState.value?.recipe?.numOfPortions = numOfPortionsNew
+    fun updateIngredientsAndNumOfPortions(progress: Int) {
+        _recipeUiState.value?.recipe?.let { recipe ->
+            recipe.ingredients.forEach {
+                val componentQuantity = it.quantity.toDouble() * progress / recipe.numOfPortions
+
+                it.quantity =
+                    if (isInteger(componentQuantity)) {
+                        "${componentQuantity.toInt()}"
+                    } else {
+                        "%.${NUM_OF_INGREDIENT_MANTIS}f".format(
+                            locale = Locale.US,
+                            componentQuantity
+                        )
+                    }
+            }
+
+            recipe.numOfPortions = progress
+        }
     }
 
     private fun getFavorites(): MutableSet<String> {
@@ -87,3 +107,12 @@ class RecipeViewModel(private val application: Application) : AndroidViewModel(a
         }
     }
 }
+
+private fun isInteger(num: Double) =
+    convertToNumWithNeededAccuracy(num.toInt().toDouble(), NUM_OF_INGREDIENT_MANTIS) ==
+            convertToNumWithNeededAccuracy(num, NUM_OF_INGREDIENT_MANTIS)
+
+private fun convertToNumWithNeededAccuracy(num: Double, accuracy: Int) =
+    BigDecimal("$num")
+        .setScale(accuracy, RoundingMode.HALF_UP)
+        .stripTrailingZeros().toPlainString()
