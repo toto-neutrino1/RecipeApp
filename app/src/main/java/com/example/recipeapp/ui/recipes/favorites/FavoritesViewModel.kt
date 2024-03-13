@@ -11,7 +11,7 @@ import com.example.recipeapp.data.STUB
 import com.example.recipeapp.model.Recipe
 
 data class FavoritesUiState(
-    var recipesList: List<Recipe> = listOf()
+    val recipesList: List<Recipe> = listOf()
 )
 
 class FavoritesViewModel(private val application: Application) : AndroidViewModel(application) {
@@ -20,7 +20,8 @@ class FavoritesViewModel(private val application: Application) : AndroidViewMode
     val favoritesUiState: LiveData<FavoritesUiState> = _favoritesUiState
 
     fun loadFavorites() {
-        _favoritesUiState.value?.recipesList = STUB.getRecipesByIds(getFavoritesIds())
+        _favoritesUiState.value =
+            _favoritesUiState.value?.copy(recipesList = STUB.getRecipesByIds(getFavoritesIds()))
     }
 
     private fun getFavoritesIds(): Set<Int> {

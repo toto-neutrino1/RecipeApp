@@ -6,9 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
+import androidx.fragment.app.viewModels
 import com.example.recipeapp.R
 import com.example.recipeapp.data.ARG_CATEGORY_ID
 import com.example.recipeapp.data.ARG_RECIPE_ID
@@ -22,7 +22,7 @@ class RecipesListFragment : Fragment() {
         get() = _binding ?: throw IllegalArgumentException("FragmentListRecipesBinding is null!")
 
     private var categoryId: Int? = null
-    private val viewModel: RecipeListViewModel by activityViewModels()
+    private val viewModel: RecipeListViewModel by viewModels()
 
     private val recipesListAdapter = RecipesListAdapter(listOf())
 

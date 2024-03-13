@@ -6,12 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
+import androidx.fragment.app.viewModels
 import com.example.recipeapp.R
 import com.example.recipeapp.data.ARG_CATEGORY_ID
-import com.example.recipeapp.data.STUB
 import com.example.recipeapp.databinding.FragmentListCategoriesBinding
 import com.example.recipeapp.ui.recipes.recipesList.RecipesListFragment
 
@@ -20,7 +19,7 @@ class CategoriesListFragment : Fragment() {
     private val binding
         get() = _binding ?: throw IllegalArgumentException("CategoriesListFragmentBinding is null!")
 
-    private val viewModel: CategoriesViewModel by activityViewModels()
+    private val viewModel: CategoriesViewModel by viewModels()
     private val categoriesListAdapter: CategoriesListAdapter = CategoriesListAdapter(listOf())
 
     override fun onCreateView(

@@ -12,9 +12,9 @@ import com.example.recipeapp.model.Category
 import com.example.recipeapp.model.Recipe
 
 data class RecipeListUiState(
-    var category: Category? = null,
-    var recipesList: List<Recipe> = listOf(),
-    var recipeListTitleImage: Drawable? = null
+    val category: Category? = null,
+    val recipesList: List<Recipe> = listOf(),
+    val recipeListTitleImage: Drawable? = null
 )
 
 class RecipeListViewModel(private val application: Application) : AndroidViewModel(application) {
@@ -23,20 +23,22 @@ class RecipeListViewModel(private val application: Application) : AndroidViewMod
     val recipeListUiState: LiveData<RecipeListUiState> = _recipeListUiState
 
     fun loadRecipesList(categoryId: Int?) {
-        _recipeListUiState.value?.let {
-            it.category = STUB.getCategories().find { category -> category.id == categoryId }
-            it.recipesList = STUB.getRecipesByCategoryId(categoryId ?: 0)
+        try {
+            val inputStream = application.assets?.open(
+                _recipeListUiState.value?.category?.imageUrl ?: "burger.png"
+            )
 
-            try {
-                val inputStream =
-                    application.assets?.open(it.category?.imageUrl ?: "burger.png")
-                it.recipeListTitleImage = Drawable.createFromStream(inputStream, null)
-            } catch (e: Exception) {
-                Log.e(
-                    "${application.getString(R.string.asset_error)}",
-                    "${e.printStackTrace()}"
+            _recipeListUiState.value =
+                _recipeListUiState.value?.copy(
+                    category = STUB.getCategories().find { category -> category.id == categoryId },
+                    recipesList = STUB.getRecipesByCategoryId(categoryId ?: 0),
+                    recipeListTitleImage = Drawable.createFromStream(inputStream, null)
                 )
-            }
+        } catch (e: Exception) {
+            Log.e(
+                "${application.getString(R.string.asset_error)}",
+                "${e.printStackTrace()}"
+            )
         }
     }
 }

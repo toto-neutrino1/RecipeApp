@@ -7,7 +7,7 @@ import com.example.recipeapp.data.STUB
 import com.example.recipeapp.model.Category
 
 data class CategoriesUiState(
-    var categoriesList: List<Category> = listOf()
+    val categoriesList: List<Category> = listOf()
 )
 
 class CategoriesViewModel : ViewModel() {
@@ -16,6 +16,7 @@ class CategoriesViewModel : ViewModel() {
     val categoriesUiState: LiveData<CategoriesUiState> = _categoriesUiState
 
     fun loadCategories() {
-        _categoriesUiState.value?.categoriesList = STUB.getCategories()
+        _categoriesUiState.value =
+            _categoriesUiState.value?.copy(categoriesList = STUB.getCategories())
     }
 }

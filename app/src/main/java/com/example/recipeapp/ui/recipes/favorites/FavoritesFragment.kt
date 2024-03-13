@@ -6,9 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
+import androidx.fragment.app.viewModels
 import com.example.recipeapp.R
 import com.example.recipeapp.data.ARG_RECIPE_ID
 import com.example.recipeapp.databinding.FragmentFavoritesBinding
@@ -20,7 +20,7 @@ class FavoritesFragment : Fragment() {
     private val binding
         get() = _binding ?: throw IllegalArgumentException("FragmentFavoritesBinding is null!")
 
-    private val viewModel: FavoritesViewModel by activityViewModels()
+    private val viewModel: FavoritesViewModel by viewModels()
     private val recipesListAdapter = RecipesListAdapter(listOf())
 
     override fun onCreateView(
