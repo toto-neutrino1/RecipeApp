@@ -18,9 +18,9 @@ import java.math.RoundingMode
 import java.util.Locale
 
 data class RecipeUiState(
-    var recipe: Recipe? = null,
-    var isInFavorites: Boolean = false,
-    var recipeImage: Drawable? = null
+    val recipe: Recipe? = null,
+    val isInFavorites: Boolean = false,
+    val recipeImage: Drawable? = null
 )
 
 class RecipeViewModel(private val application: Application) : AndroidViewModel(application) {
@@ -31,38 +31,38 @@ class RecipeViewModel(private val application: Application) : AndroidViewModel(a
 
     fun loadRecipe(recipeId: Int?) {
         // TODO("load from network")
-        _recipeUiState.value?.let {
-            if (recipeId != null) {
-                it.recipe = STUB.getRecipeById(recipeId = recipeId)
-                it.isInFavorites = "$recipeId" in favoritesIdsStringSet
+        try {
+            val inputStream = application.assets?.open(
+                _recipeUiState.value?.recipe?.imageUrl ?: "burger.png"
+            )
 
-                try {
-                    val inputStream =
-                        application.assets?.open(it.recipe?.imageUrl ?: "burger.png")
-                    it.recipeImage = Drawable.createFromStream(inputStream, null)
-                } catch (e: Exception) {
-                    Log.e(
-                        application.getString(R.string.asset_error),
-                        "${e.printStackTrace()}"
-                    )
-                    it.recipeImage = null
-                }
-            }
+            _recipeUiState.value =
+                _recipeUiState.value?.copy(
+                    recipe = STUB.getRecipeById(recipeId = recipeId ?: -1),
+                    isInFavorites = "$recipeId" in favoritesIdsStringSet,
+                    recipeImage = Drawable.createFromStream(inputStream, null)
+                )
+        } catch (e: Exception) {
+            Log.e(
+                application.getString(R.string.asset_error),
+                "${e.printStackTrace()}"
+            )
         }
     }
 
     fun onFavoritesClicked() {
-        _recipeUiState.value?.let {
-            if (it.recipe != null && it.isInFavorites) {
-                favoritesIdsStringSet.remove("${it.recipe?.id}")
-                it.isInFavorites = false
+        with(_recipeUiState.value) {
+            if (this?.recipe != null && this.isInFavorites) {
+                favoritesIdsStringSet.remove("${this.recipe.id}")
+                _recipeUiState.value = _recipeUiState.value?.copy(isInFavorites = false)
             } else {
-                favoritesIdsStringSet.add("${it.recipe?.id}")
-                it.isInFavorites = true
+                favoritesIdsStringSet.add("${this?.recipe?.id}")
+                _recipeUiState.value = _recipeUiState.value?.copy(isInFavorites = true)
             }
-
             saveFavorites(favoritesIdsStringSet)
         }
+
+        notifyObserver()
     }
 
     fun updateIngredientsAndNumOfPortions(progress: Int) {
@@ -83,7 +83,11 @@ class RecipeViewModel(private val application: Application) : AndroidViewModel(a
 
             recipe.numOfPortions = progress
         }
+
+        notifyObserver()
     }
+
+    private fun notifyObserver() = _recipeUiState.postValue(recipeUiState.value)
 
     private fun getFavorites(): MutableSet<String> {
         val sharedPrefs = application.getSharedPreferences(

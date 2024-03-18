@@ -25,6 +25,9 @@ class RecipeFragment : Fragment() {
     private val ingredientsAdapter: IngredientsAdapter = IngredientsAdapter(listOf())
     private val methodAdapter: MethodAdapter = MethodAdapter(listOf())
 
+    private var isNewFragment: Boolean = true
+    private var isClickedOnFavorites: Boolean = false
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -56,45 +59,60 @@ class RecipeFragment : Fragment() {
 
     private fun initUI() {
         viewModel.recipeUiState.observe(viewLifecycleOwner) { recipeState ->
-            with(binding) {
-                tvTitleRecipeText.text = recipeState.recipe?.title
-                tvPortionsQuantity.text = "${recipeState.recipe?.numOfPortions ?: 1}"
-                sbPortionsQuantity.setPadding(0, 0, 0, 0)
-                sbPortionsQuantity.progress = recipeState.recipe?.numOfPortions ?: 1
-            }
+            if (isNewFragment) {
+                isNewFragment = false
+                with(binding) {
+                    tvTitleRecipeText.text = recipeState.recipe?.title
+                    tvPortionsQuantity.text = "${recipeState.recipe?.numOfPortions ?: 1}"
+                    sbPortionsQuantity.setPadding(0, 0, 0, 0)
+                    sbPortionsQuantity.progress = recipeState.recipe?.numOfPortions ?: 1
+                }
 
-            with(binding.ibRecipeFavoritesBtn) {
-                setImageDrawable(
-                    ResourcesCompat.getDrawable(
-                        resources,
-                        if (recipeState.recipe != null && recipeState.isInFavorites) {
-                            R.drawable.ic_heart
-                        } else R.drawable.ic_heart_empty,
-                        null
+                with(binding.ibRecipeFavoritesBtn) {
+                    setImageDrawable(
+                        ResourcesCompat.getDrawable(
+                            resources,
+                            if (recipeState.recipe != null && recipeState.isInFavorites) {
+                                R.drawable.ic_heart
+                            } else R.drawable.ic_heart_empty,
+                            null
+                        )
                     )
-                )
 
-                setOnClickListener {
-                    viewModel.onFavoritesClicked()
-                    if (recipeState.isInFavorites) {
-                        setImageDrawable(
-                            ResourcesCompat.getDrawable(resources, R.drawable.ic_heart, null)
-                        )
-                    } else {
-                        setImageDrawable(
-                            ResourcesCompat.getDrawable(resources, R.drawable.ic_heart_empty, null)
-                        )
+                    setOnClickListener {
+                        isClickedOnFavorites = true
+                        viewModel.onFavoritesClicked()
                     }
                 }
-            }
 
-            with(binding.ivTitleRecipeImage) {
-                setImageDrawable(recipeState.recipeImage)
-                contentDescription =
-                    "${context?.getString(R.string.cont_descr_iv_recipe)} ${recipeState.recipe?.title}"
-            }
+                with(binding.ivTitleRecipeImage) {
+                    setImageDrawable(recipeState.recipeImage)
+                    contentDescription =
+                        "${context?.getString(R.string.cont_descr_iv_recipe)} ${recipeState.recipe?.title}"
+                }
 
-            initRecyclers(recipeState)
+                initRecyclers(recipeState)
+            } else {
+                with(binding) {
+                    tvPortionsQuantity.text = "${recipeState.recipe?.numOfPortions ?: 1}"
+                    sbPortionsQuantity.progress = recipeState.recipe?.numOfPortions ?: 1
+                }
+
+                if (isClickedOnFavorites) {
+                    isClickedOnFavorites = false
+                    binding.ibRecipeFavoritesBtn.setImageDrawable(
+                        ResourcesCompat.getDrawable(
+                            resources,
+                            if (recipeState.recipe != null && recipeState.isInFavorites) {
+                                R.drawable.ic_heart
+                            } else R.drawable.ic_heart_empty,
+                            null
+                        )
+                    )
+                }
+
+                ingredientsAdapter.notifyUpdateIngredients()
+            }
         }
     }
 
@@ -111,8 +129,6 @@ class RecipeFragment : Fragment() {
                 sbPortionsQuantity.setOnSeekBarChangeListener(
                     PortionSeekBarListener { progress ->
                         viewModel.updateIngredientsAndNumOfPortions(progress)
-                        ingredientsAdapter.notifyUpdateIngredients()
-                        tvPortionsQuantity.text = "${it.recipe?.numOfPortions ?: 1}"
                     }
                 )
 
