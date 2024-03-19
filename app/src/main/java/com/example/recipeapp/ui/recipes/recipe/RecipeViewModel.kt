@@ -51,18 +51,19 @@ class RecipeViewModel(private val application: Application) : AndroidViewModel(a
     }
 
     fun onFavoritesClicked() {
+        val newFavoritesFlag: Boolean
         with(_recipeUiState.value) {
-            if (this?.recipe != null && this.isInFavorites) {
+            newFavoritesFlag = if (this?.recipe != null && this.isInFavorites) {
                 favoritesIdsStringSet.remove("${this.recipe.id}")
-                _recipeUiState.value = _recipeUiState.value?.copy(isInFavorites = false)
+                false
             } else {
                 favoritesIdsStringSet.add("${this?.recipe?.id}")
-                _recipeUiState.value = _recipeUiState.value?.copy(isInFavorites = true)
+                true
             }
             saveFavorites(favoritesIdsStringSet)
         }
 
-        notifyObserver()
+        _recipeUiState.postValue(recipeUiState.value?.copy(isInFavorites = newFavoritesFlag))
     }
 
     fun updateIngredientsAndNumOfPortions(progress: Int) {
@@ -84,10 +85,8 @@ class RecipeViewModel(private val application: Application) : AndroidViewModel(a
             recipe.numOfPortions = progress
         }
 
-        notifyObserver()
+        _recipeUiState.postValue(recipeUiState.value)
     }
-
-    private fun notifyObserver() = _recipeUiState.postValue(recipeUiState.value)
 
     private fun getFavorites(): MutableSet<String> {
         val sharedPrefs = application.getSharedPreferences(
