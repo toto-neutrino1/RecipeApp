@@ -11,7 +11,7 @@ import com.example.recipeapp.databinding.ItemRecipeBinding
 import com.example.recipeapp.model.Recipe
 
 class RecipesListAdapter(
-    private val dataset: List<Recipe>,
+    var dataset: List<Recipe>,
 ) : RecyclerView.Adapter<RecipesListAdapter.RecipesListViewHolder>() {
 
     interface OnItemClickListener {
