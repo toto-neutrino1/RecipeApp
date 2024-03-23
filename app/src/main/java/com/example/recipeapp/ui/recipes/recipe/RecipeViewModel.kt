@@ -32,13 +32,12 @@ class RecipeViewModel(private val application: Application) : AndroidViewModel(a
     fun loadRecipe(recipeId: Int?) {
         // TODO("load from network")
         try {
-            val inputStream = application.assets?.open(
-                _recipeUiState.value?.recipe?.imageUrl ?: "burger.png"
-            )
+            val recipe = STUB.getRecipeById(recipeId = recipeId ?: -1)
+            val inputStream = application.assets?.open(recipe?.imageUrl ?: "burger.png")
 
             _recipeUiState.value =
                 _recipeUiState.value?.copy(
-                    recipe = STUB.getRecipeById(recipeId = recipeId ?: -1),
+                    recipe = recipe,
                     isInFavorites = "$recipeId" in favoritesIdsStringSet,
                     recipeImage = Drawable.createFromStream(inputStream, null)
                 )

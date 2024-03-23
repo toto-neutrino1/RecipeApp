@@ -24,13 +24,12 @@ class RecipeListViewModel(private val application: Application) : AndroidViewMod
 
     fun loadRecipesList(categoryId: Int?) {
         try {
-            val inputStream = application.assets?.open(
-                _recipeListUiState.value?.category?.imageUrl ?: "burger.png"
-            )
+            val category = STUB.getCategories().find { category -> category.id == categoryId }
+            val inputStream = application.assets?.open(category?.imageUrl ?: "burger.png")
 
             _recipeListUiState.value =
                 _recipeListUiState.value?.copy(
-                    category = STUB.getCategories().find { category -> category.id == categoryId },
+                    category = category,
                     recipesList = STUB.getRecipesByCategoryId(categoryId ?: 0),
                     recipeListTitleImage = Drawable.createFromStream(inputStream, null)
                 )
