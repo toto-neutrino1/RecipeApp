@@ -22,15 +22,17 @@ class RecipeListViewModel(private val application: Application) : AndroidViewMod
         MutableLiveData(RecipeListUiState())
     val recipeListUiState: LiveData<RecipeListUiState> = _recipeListUiState
 
-    fun loadRecipesList(categoryId: Int?) {
+    fun loadRecipesList(categoryId: Int) {
         try {
             val category = STUB.getCategories().find { category -> category.id == categoryId }
-            val inputStream = application.assets?.open(category?.imageUrl ?: "burger.png")
+                ?: throw IllegalArgumentException("Category with $categoryId doesn't exist!!")
+
+            val inputStream = application.assets?.open(category.imageUrl)
 
             _recipeListUiState.value =
                 _recipeListUiState.value?.copy(
                     category = category,
-                    recipesList = STUB.getRecipesByCategoryId(categoryId ?: 0),
+                    recipesList = STUB.getRecipesByCategoryId(categoryId),
                     recipeListTitleImage = Drawable.createFromStream(inputStream, null)
                 )
         } catch (e: Exception) {

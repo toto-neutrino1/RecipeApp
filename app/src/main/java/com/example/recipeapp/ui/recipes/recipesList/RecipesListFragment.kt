@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.example.recipeapp.R
 import com.example.recipeapp.data.ARG_CATEGORY_ID
 import com.example.recipeapp.databinding.FragmentListRecipesBinding
@@ -17,7 +18,8 @@ class RecipesListFragment : Fragment() {
     private val binding
         get() = _binding ?: throw IllegalArgumentException("FragmentListRecipesBinding is null!")
 
-    private var categoryId: Int? = null
+    private val args: RecipesListFragmentArgs by navArgs()
+
     private val viewModel: RecipeListViewModel by viewModels()
 
     private val recipesListAdapter = RecipesListAdapter(listOf())
@@ -43,11 +45,7 @@ class RecipesListFragment : Fragment() {
     }
 
     private fun initInputBundleData() {
-        arguments?.let {
-            categoryId = it.getInt(ARG_CATEGORY_ID)
-        }
-
-        viewModel.loadRecipesList(categoryId)
+        viewModel.loadRecipesList(args.categoryId)
     }
 
     private fun initUI() {
