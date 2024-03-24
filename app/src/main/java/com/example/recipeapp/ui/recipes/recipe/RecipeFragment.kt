@@ -9,8 +9,8 @@ import android.widget.SeekBar
 import android.widget.SeekBar.OnSeekBarChangeListener
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.navArgs
 import com.example.recipeapp.R
-import com.example.recipeapp.data.ARG_RECIPE_ID
 import com.example.recipeapp.databinding.FragmentRecipeBinding
 
 class RecipeFragment : Fragment() {
@@ -19,7 +19,8 @@ class RecipeFragment : Fragment() {
     private val binding
         get() = _binding ?: throw IllegalArgumentException("FragmentRecipeBinding is null!")
 
-    private var recipeId: Int? = null
+    private val args: RecipeFragmentArgs by navArgs()
+
     private val viewModel: RecipeViewModel by viewModels()
 
     private val ingredientsAdapter: IngredientsAdapter = IngredientsAdapter(listOf())
@@ -50,11 +51,7 @@ class RecipeFragment : Fragment() {
     }
 
     private fun initInputBundleData() {
-        arguments?.let {
-            recipeId = it.getInt(ARG_RECIPE_ID)
-        }
-
-        viewModel.loadRecipe(recipeId)
+        viewModel.loadRecipe(args.recipeId)
     }
 
     private fun initUI() {
