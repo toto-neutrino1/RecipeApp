@@ -9,7 +9,6 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.recipeapp.R
-import com.example.recipeapp.data.ARG_CATEGORY_ID
 import com.example.recipeapp.databinding.FragmentListRecipesBinding
 
 class RecipesListFragment : Fragment() {
