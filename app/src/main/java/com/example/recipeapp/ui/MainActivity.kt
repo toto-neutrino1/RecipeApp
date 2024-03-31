@@ -12,7 +12,9 @@ import com.example.recipeapp.model.Category
 import com.example.recipeapp.model.Recipe
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import java.net.HttpURLConnection
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import okhttp3.logging.HttpLoggingInterceptor
 import java.net.URL
 import java.util.concurrent.Executors
 
@@ -36,31 +38,35 @@ class MainActivity : AppCompatActivity() {
             findNavController(R.id.navHostFragment).navigate(R.id.favoritesFragment)
         }
 
-        val categoriesThread = Thread {
-            val categoriesUrl = URL(URL_GET_CATEGORIES)
-            val categoriesConnection = categoriesUrl.openConnection() as HttpURLConnection
-            categoriesConnection.connect()
-
-            Log.i(
-                "getCategoriesThread",
-                "Выполняю запрос на потоке: ${Thread.currentThread().name}"
-            )
-
-            val jsonCategories = categoriesConnection.inputStream.bufferedReader().readText()
-            println(jsonCategories)
-
-            val categories: List<Category> =
-                Gson().fromJson(jsonCategories, object : TypeToken<List<Category>>() {}.type)
-            categoriesIds = categories.map { it.id }
-        }
-
-        categoriesThread.start()
         Log.i(
             "MainThread",
             "Метод onCreate() выполняется на потоке: ${Thread.currentThread().name}"
         )
 
         val threadPool = Executors.newFixedThreadPool(10)
+
+        threadPool.execute {
+            val categoriesUrl = URL(URL_GET_CATEGORIES)
+
+            val categoriesLogging =
+                HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
+            val categoriesClient = OkHttpClient.Builder().addInterceptor(categoriesLogging).build()
+            val categoriesRequest = Request.Builder().url(categoriesUrl).build()
+
+            categoriesClient.newCall(categoriesRequest).execute().use { response ->
+                Log.i(
+                    "getCategoriesThread",
+                    "Выполняю запрос на потоке: ${Thread.currentThread().name}"
+                )
+
+                val jsonCategories = response.body?.string()
+                println(jsonCategories)
+
+                val categories: List<Category> =
+                    Gson().fromJson(jsonCategories, object : TypeToken<List<Category>>() {}.type)
+                categoriesIds = categories.map { it.id }
+            }
+        }
 
         while (categoriesIds.isEmpty()) {
             Thread.sleep(1000)
@@ -69,19 +75,24 @@ class MainActivity : AppCompatActivity() {
         categoriesIds.forEach { id ->
             threadPool.execute {
                 val recipesUrl = URL("$URL_GET_CATEGORIES/$id/$URL_GET_RECIPES_SUFFIX")
-                val recipesConnection = recipesUrl.openConnection() as HttpURLConnection
-                recipesConnection.connect()
 
-                Log.i(
-                    "getRecipesByIdsThread",
-                    "Выполняю запрос на потоке: ${Thread.currentThread().name}"
-                )
+                val recipesLogging =
+                    HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
+                val recipesClient = OkHttpClient.Builder().addInterceptor(recipesLogging).build()
+                val recipesRequest = Request.Builder().url(recipesUrl).build()
 
-                val jsonRecipes = recipesConnection.inputStream.bufferedReader().readText()
-                val recipes: List<Recipe> =
-                    Gson().fromJson(jsonRecipes, object : TypeToken<List<Recipe>>() {}.type)
+                recipesClient.newCall(recipesRequest).execute().use { response ->
+                    Log.i(
+                        "getRecipesByIdsThread",
+                        "Выполняю запрос на потоке: ${Thread.currentThread().name}"
+                    )
 
-                println(recipes)
+                    val jsonRecipes = response.body?.string()
+                    val recipes: List<Recipe> =
+                        Gson().fromJson(jsonRecipes, object : TypeToken<List<Recipe>>() {}.type)
+
+                    println(recipes)
+                }
             }
         }
     }
