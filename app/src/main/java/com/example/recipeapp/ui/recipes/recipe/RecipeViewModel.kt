@@ -9,12 +9,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.recipeapp.R
 import com.example.recipeapp.data.NUM_OF_INGREDIENT_MANTIS
+import com.example.recipeapp.data.RecipesRepository
 import com.example.recipeapp.data.SHARED_FAVORITES_IDS_FILE_NAME
 import com.example.recipeapp.data.SHARED_FAVORITES_IDS_KEY
-import com.example.recipeapp.data.STUB
 import com.example.recipeapp.model.Recipe
 import java.math.BigDecimal
 import java.math.RoundingMode
+import java.util.Arrays
 import java.util.Locale
 
 data class RecipeUiState(
@@ -29,10 +30,12 @@ class RecipeViewModel(private val application: Application) : AndroidViewModel(a
     private var _recipeUiState: MutableLiveData<RecipeUiState> = MutableLiveData(RecipeUiState())
     val recipeUiState: LiveData<RecipeUiState> = _recipeUiState
 
+    private val recipesRepository = RecipesRepository()
+
     fun loadRecipe(recipeId: Int?) {
         // TODO("load from network")
         try {
-            val recipe = STUB.getRecipeById(recipeId = recipeId ?: -1)
+            val recipe = recipesRepository.getRecipeById(recipeId ?: -1)
             val inputStream = application.assets?.open(recipe?.imageUrl ?: "burger.png")
 
             _recipeUiState.value =
