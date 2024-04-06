@@ -22,7 +22,7 @@ class RecipesRepository {
 
     private val service = retrofit.create(RecipeApiService::class.java)
 
-    private val threadPool = Executors.newFixedThreadPool(10)
+    private val threadPool = Executors.newFixedThreadPool(3)
 
     fun getCategories(): List<Category>? {
         var categories: List<Category>? = null

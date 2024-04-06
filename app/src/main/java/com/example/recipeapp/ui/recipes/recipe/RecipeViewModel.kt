@@ -75,17 +75,25 @@ class RecipeViewModel(private val application: Application) : AndroidViewModel(a
     fun updateIngredientsAndNumOfPortions(progress: Int) {
         _recipeUiState.value?.recipe?.let { recipe ->
             recipe.ingredients.forEach {
-                val componentQuantity = it.quantity.toDouble() * progress / recipe.numOfPortions
+                val isNumber = try {
+                    it.quantity.toDouble()
+                    true
+                } catch (e: Exception) {
+                    false
+                }
+                if (isNumber) {
+                    val componentQuantity = it.quantity.toDouble() * progress / recipe.numOfPortions
 
-                it.quantity =
-                    if (isInteger(componentQuantity)) {
-                        "${componentQuantity.toInt()}"
-                    } else {
-                        "%.${NUM_OF_INGREDIENT_MANTIS}f".format(
-                            locale = Locale.US,
-                            componentQuantity
-                        )
-                    }
+                    it.quantity =
+                        if (isInteger(componentQuantity)) {
+                            "${componentQuantity.toInt()}"
+                        } else {
+                            "%.${NUM_OF_INGREDIENT_MANTIS}f".format(
+                                locale = Locale.US,
+                                componentQuantity
+                            )
+                        }
+                }
             }
 
             recipe.numOfPortions = progress
