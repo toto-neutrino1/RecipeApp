@@ -15,7 +15,6 @@ import com.example.recipeapp.data.SHARED_FAVORITES_IDS_KEY
 import com.example.recipeapp.model.Recipe
 import java.math.BigDecimal
 import java.math.RoundingMode
-import java.util.Arrays
 import java.util.Locale
 
 data class RecipeUiState(
@@ -36,7 +35,12 @@ class RecipeViewModel(private val application: Application) : AndroidViewModel(a
         // TODO("load from network")
         try {
             val recipe = recipesRepository.getRecipeById(recipeId ?: -1)
-            val inputStream = application.assets?.open(recipe?.imageUrl ?: "burger.png")
+
+            val inputStream = try {
+                application.assets?.open(recipe?.imageUrl ?: "pizza.png")
+            } catch (e: Exception) {
+                application.assets?.open("burger.png")
+            }
 
             _recipeUiState.value =
                 _recipeUiState.value?.copy(
