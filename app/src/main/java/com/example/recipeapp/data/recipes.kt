@@ -4,6 +4,7 @@ import com.example.recipeapp.model.Category
 import com.example.recipeapp.model.Ingredient
 import com.example.recipeapp.model.Recipe
 
+@Deprecated("Data must be loaded from network or/and database")
 object STUB {
     private val categoriesList =
         listOf(

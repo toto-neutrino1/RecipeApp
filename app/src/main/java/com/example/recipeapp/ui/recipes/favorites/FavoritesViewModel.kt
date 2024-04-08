@@ -5,13 +5,13 @@ import android.content.Context
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.example.recipeapp.data.RecipesRepository
 import com.example.recipeapp.data.SHARED_FAVORITES_IDS_FILE_NAME
 import com.example.recipeapp.data.SHARED_FAVORITES_IDS_KEY
-import com.example.recipeapp.data.STUB
 import com.example.recipeapp.model.Recipe
 
 data class FavoritesUiState(
-    val recipesList: List<Recipe> = listOf()
+    val recipesList: List<Recipe>? = listOf()
 )
 
 class FavoritesViewModel(private val application: Application) : AndroidViewModel(application) {
@@ -19,9 +19,13 @@ class FavoritesViewModel(private val application: Application) : AndroidViewMode
         MutableLiveData(FavoritesUiState())
     val favoritesUiState: LiveData<FavoritesUiState> = _favoritesUiState
 
+    private val recipesRepository = RecipesRepository()
+
     fun loadFavorites() {
         _favoritesUiState.value =
-            _favoritesUiState.value?.copy(recipesList = STUB.getRecipesByIds(getFavoritesIds()))
+            _favoritesUiState.value?.copy(
+                recipesList = recipesRepository.getRecipesByIds(getFavoritesIds())
+            )
     }
 
     private fun getFavoritesIds(): Set<Int> {

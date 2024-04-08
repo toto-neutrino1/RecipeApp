@@ -7,13 +7,13 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.recipeapp.R
-import com.example.recipeapp.data.STUB
+import com.example.recipeapp.data.RecipesRepository
 import com.example.recipeapp.model.Category
 import com.example.recipeapp.model.Recipe
 
 data class RecipeListUiState(
     val category: Category? = null,
-    val recipesList: List<Recipe> = listOf(),
+    val recipesList: List<Recipe>? = listOf(),
     val recipeListTitleImage: Drawable? = null
 )
 
@@ -22,17 +22,18 @@ class RecipeListViewModel(private val application: Application) : AndroidViewMod
         MutableLiveData(RecipeListUiState())
     val recipeListUiState: LiveData<RecipeListUiState> = _recipeListUiState
 
+    private val recipesRepository = RecipesRepository()
+
     fun loadRecipesList(categoryId: Int) {
         try {
-            val category = STUB.getCategories().find { category -> category.id == categoryId }
-                ?: throw IllegalArgumentException("Category with $categoryId doesn't exist!!")
+            val category = recipesRepository.getCategoryById(categoryId)
 
-            val inputStream = application.assets?.open(category.imageUrl)
+            val inputStream = application.assets?.open(category?.imageUrl ?: "")
 
             _recipeListUiState.value =
                 _recipeListUiState.value?.copy(
                     category = category,
-                    recipesList = STUB.getRecipesByCategoryId(categoryId),
+                    recipesList = recipesRepository.getRecipesByCategoryId(categoryId),
                     recipeListTitleImage = Drawable.createFromStream(inputStream, null)
                 )
         } catch (e: Exception) {
