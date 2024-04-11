@@ -32,6 +32,21 @@ class RecipeViewModel(private val application: Application) : AndroidViewModel(a
         // TODO("load from network")
         val recipe = recipesRepository.getRecipeById(recipeId ?: -1)
 
+        recipe?.ingredients?.forEach {
+            val quantity = it.quantity.toDoubleOrNull()
+            if (quantity != null) {
+                it.quantity =
+                    if (isInteger(quantity)) {
+                        "${quantity.toInt()}"
+                    } else {
+                        "%.${NUM_OF_INGREDIENT_MANTIS}f".format(
+                            locale = Locale.US,
+                            quantity
+                        )
+                    }
+            }
+        }
+
         _recipeUiState.value =
             _recipeUiState.value?.copy(
                 recipe = recipe,
