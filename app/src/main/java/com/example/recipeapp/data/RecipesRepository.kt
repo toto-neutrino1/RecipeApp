@@ -31,7 +31,10 @@ class RecipesRepository {
                 val categoriesCall: Call<List<Category>> = service.getCategories()
                 val categoriesResponse: Response<List<Category>> = categoriesCall.execute()
 
-                categories = categoriesResponse.body()
+                categories =
+                    categoriesResponse.body()?.map {
+                        it.copy(imageUrl = "$IMAGES_URL/${it.imageUrl}")
+                    }
             } catch (e: Exception) {
                 Log.i("network, getCategories()", "${e.printStackTrace()}")
             }
@@ -53,7 +56,8 @@ class RecipesRepository {
                 val recipesCall: Call<List<Recipe>> = service.getRecipesByCategoryId(categoryId)
                 val recipesResponse: Response<List<Recipe>> = recipesCall.execute()
 
-                recipes = recipesResponse.body()
+                recipes =
+                    recipesResponse.body()?.map { it.copy(imageUrl = "$IMAGES_URL/${it.imageUrl}") }
             } catch (e: Exception) {
                 Log.i("network, getRecipesByCategoryId()", "${e.printStackTrace()}")
             }
@@ -75,8 +79,13 @@ class RecipesRepository {
                 val recipeCall: Call<Recipe> = service.getRecipeById(recipeId)
                 val recipeResponse: Response<Recipe> = recipeCall.execute()
 
-                recipe = recipeResponse.body()
-                recipe?.numOfPortions = 1
+                recipeResponse.body()?.let {
+                    recipe = it.copy(
+                        imageUrl = "$IMAGES_URL/${it.imageUrl}",
+                        numOfPortions = 1
+                    )
+                }
+//                recipe = recipeResponse.body()?.copy(numOfPortions = 1)
             } catch (e: Exception) {
                 Log.i("network, getRecipeById()", "${e.printStackTrace()}")
             }
@@ -99,7 +108,8 @@ class RecipesRepository {
 
                 val recipesCall: Call<List<Recipe>> = service.getRecipesByIds(idsString)
                 val recipesResponse: Response<List<Recipe>> = recipesCall.execute()
-                recipes = recipesResponse.body()
+                recipes =
+                    recipesResponse.body()?.map { it.copy(imageUrl = "$IMAGES_URL/${it.imageUrl}") }
             } catch (e: Exception) {
                 Log.i("network, getRecipesByIds()", "${e.printStackTrace()}")
             }
@@ -121,7 +131,9 @@ class RecipesRepository {
                 val categoryCall: Call<Category> = service.getCategoryById(categoryId)
                 val categoryResponse: Response<Category> = categoryCall.execute()
 
-                category = categoryResponse.body()
+                categoryResponse.body()?.let {
+                    category = it.copy(imageUrl = "$IMAGES_URL/${it.imageUrl}")
+                }
             } catch (e: Exception) {
                 Log.i("network, getCategoryById()", "${e.printStackTrace()}")
             }
