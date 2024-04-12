@@ -11,7 +11,7 @@ interface RecipeApiService {
     @GET("$RECIPE/{id}")
     fun getRecipeById(@Path("id") recipeId: Int): Call<Recipe>
 
-    @GET("$RECIPES")
+    @GET(RECIPES)
     fun getRecipesByIds(@Query("ids") recipesIds: String): Call<List<Recipe>>
 
     @GET("$CATEGORY/{id}")
@@ -20,6 +20,6 @@ interface RecipeApiService {
     @GET("$CATEGORY/{id}/$RECIPES")
     fun getRecipesByCategoryId(@Path("id") categoryId: Int): Call<List<Recipe>>
 
-    @GET("$CATEGORY")
+    @GET(CATEGORY)
     fun getCategories(): Call<List<Category>>
 }

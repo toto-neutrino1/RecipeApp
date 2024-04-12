@@ -85,7 +85,6 @@ class RecipesRepository {
                         numOfPortions = 1
                     )
                 }
-//                recipe = recipeResponse.body()?.copy(numOfPortions = 1)
             } catch (e: Exception) {
                 Log.i("network, getRecipeById()", "${e.printStackTrace()}")
             }
@@ -101,27 +100,32 @@ class RecipesRepository {
     }
 
     fun getRecipesByIds(idsSet: Set<Int>, categoryId: Int = 0): List<Recipe>? {
-        var recipes: List<Recipe>? = null
-        threadPool.execute {
-            try {
-                val idsString = idsSet.joinToString(separator = ",")
+        if (idsSet.isEmpty()) {
+            return listOf()
+        } else {
+            var recipes: List<Recipe>? = null
+            threadPool.execute {
+                try {
+                    val idsString = idsSet.joinToString(separator = ",")
 
-                val recipesCall: Call<List<Recipe>> = service.getRecipesByIds(idsString)
-                val recipesResponse: Response<List<Recipe>> = recipesCall.execute()
-                recipes =
-                    recipesResponse.body()?.map { it.copy(imageUrl = "$IMAGES_URL/${it.imageUrl}") }
-            } catch (e: Exception) {
-                Log.i("network, getRecipesByIds()", "${e.printStackTrace()}")
+                    val recipesCall: Call<List<Recipe>> = service.getRecipesByIds(idsString)
+                    val recipesResponse: Response<List<Recipe>> = recipesCall.execute()
+                    recipes =
+                        recipesResponse.body()
+                            ?.map { it.copy(imageUrl = "$IMAGES_URL/${it.imageUrl}") }
+                } catch (e: Exception) {
+                    Log.i("network, getRecipesByIds()", "${e.printStackTrace()}")
+                }
             }
-        }
 
-        var count = 0
-        while (recipes.isNullOrEmpty() && count < 10) {
-            Thread.sleep(1000)
-            count++
-        }
+            var count = 0
+            while (recipes.isNullOrEmpty() && count < 10) {
+                Thread.sleep(1000)
+                count++
+            }
 
-        return recipes
+            return recipes
+        }
     }
 
     fun getCategoryById(categoryId: Int): Category? {
