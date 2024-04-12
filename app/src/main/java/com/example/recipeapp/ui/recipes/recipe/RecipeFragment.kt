@@ -13,7 +13,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.example.recipeapp.R
-import com.example.recipeapp.data.ERROR_OF_DATA_LOADING
+import com.example.recipeapp.data.DATA_LOADING
 import com.example.recipeapp.databinding.FragmentRecipeBinding
 
 class RecipeFragment : Fragment() {
@@ -60,7 +60,7 @@ class RecipeFragment : Fragment() {
     private fun initUI() {
         viewModel.recipeUiState.observe(viewLifecycleOwner) { recipeState ->
             if (recipeState.recipe == null) {
-                Toast.makeText(requireContext(), ERROR_OF_DATA_LOADING, Toast.LENGTH_LONG).show()
+                Toast.makeText(requireContext(), DATA_LOADING, Toast.LENGTH_SHORT).show()
             } else {
                 if (isNewFragment) {
                     isNewFragment = false
@@ -97,7 +97,7 @@ class RecipeFragment : Fragment() {
 
                         contentDescription =
                             "${context?.getString(R.string.cont_descr_iv_recipe)} " +
-                                    "${recipeState.recipe.title}"
+                                    recipeState.recipe.title
                     }
 
                     initRecyclers(recipeState)

@@ -11,7 +11,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.example.recipeapp.R
-import com.example.recipeapp.data.ERROR_OF_DATA_LOADING
+import com.example.recipeapp.data.DATA_LOADING
 import com.example.recipeapp.databinding.FragmentListRecipesBinding
 
 class RecipesListFragment : Fragment() {
@@ -53,7 +53,7 @@ class RecipesListFragment : Fragment() {
     private fun initUI() {
         viewModel.recipeListUiState.observe(viewLifecycleOwner) { recipeListState ->
             if (recipeListState.category == null || recipeListState.recipesList == null) {
-                Toast.makeText(requireContext(), ERROR_OF_DATA_LOADING, Toast.LENGTH_LONG).show()
+                Toast.makeText(requireContext(), DATA_LOADING, Toast.LENGTH_SHORT).show()
             } else {
                 binding.tvTitleListRecipesText.text = recipeListState.category.title
 

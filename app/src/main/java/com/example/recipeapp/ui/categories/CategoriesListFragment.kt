@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.example.recipeapp.data.ERROR_OF_DATA_LOADING
+import com.example.recipeapp.data.DATA_LOADING
 import com.example.recipeapp.databinding.FragmentListCategoriesBinding
 
 class CategoriesListFragment : Fragment() {
@@ -43,7 +43,7 @@ class CategoriesListFragment : Fragment() {
 
         viewModel.categoriesUiState.observe(viewLifecycleOwner) { categoriesState ->
             if (categoriesState.categoriesList == null) {
-                Toast.makeText(requireContext(), ERROR_OF_DATA_LOADING, Toast.LENGTH_LONG).show()
+                Toast.makeText(requireContext(), DATA_LOADING, Toast.LENGTH_SHORT).show()
             } else {
                 categoriesListAdapter.dataset = categoriesState.categoriesList
                 categoriesListAdapter.setOnItemClickListener(
