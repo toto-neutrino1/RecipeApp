@@ -31,7 +31,10 @@ class RecipesRepository {
                 val categoriesCall: Call<List<Category>> = service.getCategories()
                 val categoriesResponse: Response<List<Category>> = categoriesCall.execute()
 
-                categories = categoriesResponse.body()
+                categories =
+                    categoriesResponse.body()?.map {
+                        it.copy(imageUrl = "$IMAGES_URL/${it.imageUrl}")
+                    }
             } catch (e: Exception) {
                 Log.i("network, getCategories()", "${e.printStackTrace()}")
             }
@@ -53,7 +56,8 @@ class RecipesRepository {
                 val recipesCall: Call<List<Recipe>> = service.getRecipesByCategoryId(categoryId)
                 val recipesResponse: Response<List<Recipe>> = recipesCall.execute()
 
-                recipes = recipesResponse.body()
+                recipes =
+                    recipesResponse.body()?.map { it.copy(imageUrl = "$IMAGES_URL/${it.imageUrl}") }
             } catch (e: Exception) {
                 Log.i("network, getRecipesByCategoryId()", "${e.printStackTrace()}")
             }
@@ -75,8 +79,12 @@ class RecipesRepository {
                 val recipeCall: Call<Recipe> = service.getRecipeById(recipeId)
                 val recipeResponse: Response<Recipe> = recipeCall.execute()
 
-                recipe = recipeResponse.body()
-                recipe?.numOfPortions = 1
+                recipeResponse.body()?.let {
+                    recipe = it.copy(
+                        imageUrl = "$IMAGES_URL/${it.imageUrl}",
+                        numOfPortions = 1
+                    )
+                }
             } catch (e: Exception) {
                 Log.i("network, getRecipeById()", "${e.printStackTrace()}")
             }
@@ -92,26 +100,32 @@ class RecipesRepository {
     }
 
     fun getRecipesByIds(idsSet: Set<Int>, categoryId: Int = 0): List<Recipe>? {
-        var recipes: List<Recipe>? = null
-        threadPool.execute {
-            try {
-                val idsString = idsSet.joinToString(separator = ",")
+        if (idsSet.isEmpty()) {
+            return listOf()
+        } else {
+            var recipes: List<Recipe>? = null
+            threadPool.execute {
+                try {
+                    val idsString = idsSet.joinToString(separator = ",")
 
-                val recipesCall: Call<List<Recipe>> = service.getRecipesByIds(idsString)
-                val recipesResponse: Response<List<Recipe>> = recipesCall.execute()
-                recipes = recipesResponse.body()
-            } catch (e: Exception) {
-                Log.i("network, getRecipesByIds()", "${e.printStackTrace()}")
+                    val recipesCall: Call<List<Recipe>> = service.getRecipesByIds(idsString)
+                    val recipesResponse: Response<List<Recipe>> = recipesCall.execute()
+                    recipes =
+                        recipesResponse.body()
+                            ?.map { it.copy(imageUrl = "$IMAGES_URL/${it.imageUrl}") }
+                } catch (e: Exception) {
+                    Log.i("network, getRecipesByIds()", "${e.printStackTrace()}")
+                }
             }
-        }
 
-        var count = 0
-        while (recipes.isNullOrEmpty() && count < 10) {
-            Thread.sleep(1000)
-            count++
-        }
+            var count = 0
+            while (recipes.isNullOrEmpty() && count < 10) {
+                Thread.sleep(1000)
+                count++
+            }
 
-        return recipes
+            return recipes
+        }
     }
 
     fun getCategoryById(categoryId: Int): Category? {
@@ -121,7 +135,9 @@ class RecipesRepository {
                 val categoryCall: Call<Category> = service.getCategoryById(categoryId)
                 val categoryResponse: Response<Category> = categoryCall.execute()
 
-                category = categoryResponse.body()
+                categoryResponse.body()?.let {
+                    category = it.copy(imageUrl = "$IMAGES_URL/${it.imageUrl}")
+                }
             } catch (e: Exception) {
                 Log.i("network, getCategoryById()", "${e.printStackTrace()}")
             }

@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
+import com.bumptech.glide.Glide
 import com.example.recipeapp.R
 import com.example.recipeapp.data.ERROR_OF_DATA_LOADING
 import com.example.recipeapp.databinding.FragmentRecipeBinding
@@ -65,9 +66,9 @@ class RecipeFragment : Fragment() {
                     isNewFragment = false
                     with(binding) {
                         tvTitleRecipeText.text = recipeState.recipe.title
-                        tvPortionsQuantity.text = "${recipeState.recipe.numOfPortions ?: 1}"
+                        tvPortionsQuantity.text = "${recipeState.recipe.numOfPortions}"
                         sbPortionsQuantity.setPadding(0, 0, 0, 0)
-                        sbPortionsQuantity.progress = recipeState.recipe.numOfPortions ?: 1
+                        sbPortionsQuantity.progress = recipeState.recipe.numOfPortions
                     }
 
                     with(binding.ibRecipeFavoritesBtn) {
@@ -88,7 +89,12 @@ class RecipeFragment : Fragment() {
                     }
 
                     with(binding.ivTitleRecipeImage) {
-                        setImageDrawable(recipeState.recipeImage)
+                        Glide.with(context)
+                            .load(recipeState.recipeImageURL)
+                            .placeholder(R.drawable.img_placeholder)
+                            .error(R.drawable.img_error)
+                            .into(this)
+
                         contentDescription =
                             "${context?.getString(R.string.cont_descr_iv_recipe)} " +
                                     "${recipeState.recipe.title}"

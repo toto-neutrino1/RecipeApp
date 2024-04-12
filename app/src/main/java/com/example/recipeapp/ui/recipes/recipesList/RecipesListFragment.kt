@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.bumptech.glide.Glide
 import com.example.recipeapp.R
 import com.example.recipeapp.data.ERROR_OF_DATA_LOADING
 import com.example.recipeapp.databinding.FragmentListRecipesBinding
@@ -57,7 +58,11 @@ class RecipesListFragment : Fragment() {
                 binding.tvTitleListRecipesText.text = recipeListState.category.title
 
                 with(binding.ivTitleListRecipesImage) {
-                    setImageDrawable(recipeListState.recipeListTitleImage)
+                    Glide.with(context)
+                        .load(recipeListState.recipeListTitleImageURL)
+                        .placeholder(R.drawable.img_placeholder)
+                        .error(R.drawable.img_error)
+                        .into(this)
 
                     contentDescription =
                         "${context?.getString(R.string.cont_descr_iv_list_recipes)} " +

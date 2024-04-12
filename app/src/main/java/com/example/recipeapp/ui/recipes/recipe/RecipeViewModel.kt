@@ -2,12 +2,9 @@ package com.example.recipeapp.ui.recipes.recipe
 
 import android.app.Application
 import android.content.Context
-import android.graphics.drawable.Drawable
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.recipeapp.R
 import com.example.recipeapp.data.NUM_OF_INGREDIENT_MANTIS
 import com.example.recipeapp.data.RecipesRepository
 import com.example.recipeapp.data.SHARED_FAVORITES_IDS_FILE_NAME
@@ -20,7 +17,7 @@ import java.util.Locale
 data class RecipeUiState(
     val recipe: Recipe? = null,
     val isInFavorites: Boolean = false,
-    val recipeImage: Drawable? = null
+    val recipeImageURL: String = ""
 )
 
 class RecipeViewModel(private val application: Application) : AndroidViewModel(application) {
@@ -33,27 +30,29 @@ class RecipeViewModel(private val application: Application) : AndroidViewModel(a
 
     fun loadRecipe(recipeId: Int?) {
         // TODO("load from network")
-        try {
-            val recipe = recipesRepository.getRecipeById(recipeId ?: -1)
+        val recipe = recipesRepository.getRecipeById(recipeId ?: -1)
 
-            val inputStream = try {
-                application.assets?.open(recipe?.imageUrl ?: "pizza.png")
-            } catch (e: Exception) {
-                application.assets?.open("burger.png")
+        recipe?.ingredients?.forEach {
+            val quantity = it.quantity.toDoubleOrNull()
+            if (quantity != null) {
+                it.quantity =
+                    if (isInteger(quantity)) {
+                        "${quantity.toInt()}"
+                    } else {
+                        "%.${NUM_OF_INGREDIENT_MANTIS}f".format(
+                            locale = Locale.US,
+                            quantity
+                        )
+                    }
             }
-
-            _recipeUiState.value =
-                _recipeUiState.value?.copy(
-                    recipe = recipe,
-                    isInFavorites = "$recipeId" in favoritesIdsStringSet,
-                    recipeImage = Drawable.createFromStream(inputStream, null)
-                )
-        } catch (e: Exception) {
-            Log.e(
-                application.getString(R.string.asset_error),
-                "${e.printStackTrace()}"
-            )
         }
+
+        _recipeUiState.value =
+            _recipeUiState.value?.copy(
+                recipe = recipe,
+                isInFavorites = "$recipeId" in favoritesIdsStringSet,
+                recipeImageURL = "${recipe?.imageUrl}"
+            )
     }
 
     fun onFavoritesClicked() {
