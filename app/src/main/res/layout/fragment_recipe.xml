@@ -22,7 +22,8 @@
                 android:contentDescription="@string/cont_descr_iv_recipe"
                 android:scaleType="centerCrop"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@drawable/bcg_recipes_list" />
 
             <ImageButton
                 android:id="@+id/ibRecipeFavoritesBtn"
