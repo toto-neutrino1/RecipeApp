@@ -4,14 +4,17 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.example.recipeapp.data.RecipesRepository
 import com.example.recipeapp.model.Category
 import com.example.recipeapp.model.Recipe
+import kotlinx.coroutines.launch
 
 data class RecipeListUiState(
     val category: Category? = null,
     val recipesList: List<Recipe>? = listOf(),
-    val recipeListTitleImageURL: String = ""
+    val recipeListTitleImageURL: String = "",
+    val isLoading: Boolean = true
 )
 
 class RecipeListViewModel(private val application: Application) : AndroidViewModel(application) {
@@ -22,13 +25,16 @@ class RecipeListViewModel(private val application: Application) : AndroidViewMod
     private val recipesRepository = RecipesRepository()
 
     fun loadRecipesList(categoryId: Int) {
-        val category = recipesRepository.getCategoryById(categoryId)
+        viewModelScope.launch {
+            val category = recipesRepository.getCategoryById(categoryId)
 
-        _recipeListUiState.value =
-            _recipeListUiState.value?.copy(
-                category = category,
-                recipesList = recipesRepository.getRecipesByCategoryId(categoryId),
-                recipeListTitleImageURL = "${category?.imageUrl}"
-            )
+            _recipeListUiState.value =
+                _recipeListUiState.value?.copy(
+                    category = category,
+                    recipesList = recipesRepository.getRecipesByCategoryId(categoryId),
+                    recipeListTitleImageURL = "${category?.imageUrl}",
+                    isLoading = false
+                )
+        }
     }
 }

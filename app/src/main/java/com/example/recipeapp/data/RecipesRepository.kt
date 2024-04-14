@@ -3,13 +3,14 @@ package com.example.recipeapp.data
 import android.util.Log
 import com.example.recipeapp.model.Category
 import com.example.recipeapp.model.Recipe
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.util.concurrent.Executors
 
 class RecipesRepository {
     private val logging = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
@@ -22,11 +23,10 @@ class RecipesRepository {
 
     private val service = retrofit.create(RecipeApiService::class.java)
 
-    private val threadPool = Executors.newFixedThreadPool(3)
-
-    fun getCategories(): List<Category>? {
+    suspend fun getCategories(): List<Category>? {
         var categories: List<Category>? = null
-        threadPool.execute {
+
+        withContext(Dispatchers.IO) {
             try {
                 val categoriesCall: Call<List<Category>> = service.getCategories()
                 val categoriesResponse: Response<List<Category>> = categoriesCall.execute()
@@ -40,41 +40,32 @@ class RecipesRepository {
             }
         }
 
-        var count = 0
-        while (categories.isNullOrEmpty() && count < 10) {
-            Thread.sleep(1000)
-            count++
-        }
-
         return categories
     }
 
-    fun getRecipesByCategoryId(categoryId: Int): List<Recipe>? {
+    suspend fun getRecipesByCategoryId(categoryId: Int): List<Recipe>? {
         var recipes: List<Recipe>? = null
-        threadPool.execute {
+
+        withContext(Dispatchers.IO) {
             try {
                 val recipesCall: Call<List<Recipe>> = service.getRecipesByCategoryId(categoryId)
                 val recipesResponse: Response<List<Recipe>> = recipesCall.execute()
 
                 recipes =
-                    recipesResponse.body()?.map { it.copy(imageUrl = "$IMAGES_URL/${it.imageUrl}") }
+                    recipesResponse.body()
+                        ?.map { it.copy(imageUrl = "$IMAGES_URL/${it.imageUrl}") }
             } catch (e: Exception) {
                 Log.i("network, getRecipesByCategoryId()", "${e.printStackTrace()}")
             }
         }
 
-        var count = 0
-        while (recipes.isNullOrEmpty() && count < 10) {
-            Thread.sleep(1000)
-            count++
-        }
-
         return recipes
     }
 
-    fun getRecipeById(recipeId: Int): Recipe? {
+    suspend fun getRecipeById(recipeId: Int): Recipe? {
         var recipe: Recipe? = null
-        threadPool.execute {
+
+        withContext(Dispatchers.IO) {
             try {
                 val recipeCall: Call<Recipe> = service.getRecipeById(recipeId)
                 val recipeResponse: Response<Recipe> = recipeCall.execute()
@@ -90,21 +81,16 @@ class RecipesRepository {
             }
         }
 
-        var count = 0
-        while (recipe == null && count < 10) {
-            Thread.sleep(1000)
-            count++
-        }
-
         return recipe
     }
 
-    fun getRecipesByIds(idsSet: Set<Int>, categoryId: Int = 0): List<Recipe>? {
+    suspend fun getRecipesByIds(idsSet: Set<Int>, categoryId: Int = 0): List<Recipe>? {
         if (idsSet.isEmpty()) {
             return listOf()
         } else {
             var recipes: List<Recipe>? = null
-            threadPool.execute {
+
+            withContext(Dispatchers.IO) {
                 try {
                     val idsString = idsSet.joinToString(separator = ",")
 
@@ -118,19 +104,14 @@ class RecipesRepository {
                 }
             }
 
-            var count = 0
-            while (recipes.isNullOrEmpty() && count < 10) {
-                Thread.sleep(1000)
-                count++
-            }
-
             return recipes
         }
     }
 
-    fun getCategoryById(categoryId: Int): Category? {
+    suspend fun getCategoryById(categoryId: Int): Category? {
         var category: Category? = null
-        threadPool.execute {
+
+        withContext(Dispatchers.IO) {
             try {
                 val categoryCall: Call<Category> = service.getCategoryById(categoryId)
                 val categoryResponse: Response<Category> = categoryCall.execute()
@@ -141,12 +122,6 @@ class RecipesRepository {
             } catch (e: Exception) {
                 Log.i("network, getCategoryById()", "${e.printStackTrace()}")
             }
-        }
-
-        var count = 0
-        while (category == null && count < 10) {
-            Thread.sleep(1000)
-            count++
         }
 
         return category

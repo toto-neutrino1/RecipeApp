@@ -5,11 +5,13 @@ import android.content.Context
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.example.recipeapp.data.NUM_OF_INGREDIENT_MANTIS
 import com.example.recipeapp.data.RecipesRepository
 import com.example.recipeapp.data.SHARED_FAVORITES_IDS_FILE_NAME
 import com.example.recipeapp.data.SHARED_FAVORITES_IDS_KEY
 import com.example.recipeapp.model.Recipe
+import kotlinx.coroutines.launch
 import java.math.BigDecimal
 import java.math.RoundingMode
 import java.util.Locale
@@ -17,7 +19,8 @@ import java.util.Locale
 data class RecipeUiState(
     val recipe: Recipe? = null,
     val isInFavorites: Boolean = false,
-    val recipeImageURL: String = ""
+    val recipeImageURL: String = "",
+    val isLoading: Boolean = true
 )
 
 class RecipeViewModel(private val application: Application) : AndroidViewModel(application) {
@@ -29,30 +32,32 @@ class RecipeViewModel(private val application: Application) : AndroidViewModel(a
     private val recipesRepository = RecipesRepository()
 
     fun loadRecipe(recipeId: Int?) {
-        // TODO("load from network")
-        val recipe = recipesRepository.getRecipeById(recipeId ?: -1)
+        viewModelScope.launch {
+            val recipe = recipesRepository.getRecipeById(recipeId ?: -1)
 
-        recipe?.ingredients?.forEach {
-            val quantity = it.quantity.toDoubleOrNull()
-            if (quantity != null) {
-                it.quantity =
-                    if (isInteger(quantity)) {
-                        "${quantity.toInt()}"
-                    } else {
-                        "%.${NUM_OF_INGREDIENT_MANTIS}f".format(
-                            locale = Locale.US,
-                            quantity
-                        )
-                    }
+            recipe?.ingredients?.forEach {
+                val quantity = it.quantity.toDoubleOrNull()
+                if (quantity != null) {
+                    it.quantity =
+                        if (isInteger(quantity)) {
+                            "${quantity.toInt()}"
+                        } else {
+                            "%.${NUM_OF_INGREDIENT_MANTIS}f".format(
+                                locale = Locale.US,
+                                quantity
+                            )
+                        }
+                }
             }
-        }
 
-        _recipeUiState.value =
-            _recipeUiState.value?.copy(
-                recipe = recipe,
-                isInFavorites = "$recipeId" in favoritesIdsStringSet,
-                recipeImageURL = "${recipe?.imageUrl}"
-            )
+            _recipeUiState.value =
+                _recipeUiState.value?.copy(
+                    recipe = recipe,
+                    isInFavorites = "$recipeId" in favoritesIdsStringSet,
+                    recipeImageURL = "${recipe?.imageUrl}",
+                    isLoading = false
+                )
+        }
     }
 
     fun onFavoritesClicked() {
