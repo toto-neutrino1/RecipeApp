@@ -16,7 +16,6 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/big_128"
             android:scaleType="centerCrop"
-            android:src="@drawable/bcg_recipes_list"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 

@@ -13,7 +13,8 @@ import kotlinx.coroutines.launch
 data class RecipeListUiState(
     val category: Category? = null,
     val recipesList: List<Recipe>? = listOf(),
-    val recipeListTitleImageURL: String = ""
+    val recipeListTitleImageURL: String = "",
+    val isLoading: Boolean = true
 )
 
 class RecipeListViewModel(private val application: Application) : AndroidViewModel(application) {
@@ -31,7 +32,8 @@ class RecipeListViewModel(private val application: Application) : AndroidViewMod
                 _recipeListUiState.value?.copy(
                     category = category,
                     recipesList = recipesRepository.getRecipesByCategoryId(categoryId),
-                    recipeListTitleImageURL = "${category?.imageUrl}"
+                    recipeListTitleImageURL = "${category?.imageUrl}",
+                    isLoading = false
                 )
         }
     }

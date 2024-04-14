@@ -13,7 +13,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.example.recipeapp.R
-import com.example.recipeapp.data.DATA_LOADING
+import com.example.recipeapp.data.ERROR_OF_DATA_LOADING
 import com.example.recipeapp.databinding.FragmentRecipeBinding
 
 class RecipeFragment : Fragment() {
@@ -59,68 +59,71 @@ class RecipeFragment : Fragment() {
 
     private fun initUI() {
         viewModel.recipeUiState.observe(viewLifecycleOwner) { recipeState ->
-            if (recipeState.recipe == null) {
-                Toast.makeText(requireContext(), DATA_LOADING, Toast.LENGTH_SHORT).show()
-            } else {
-                if (isNewFragment) {
-                    isNewFragment = false
-                    with(binding) {
-                        tvTitleRecipeText.text = recipeState.recipe.title
-                        tvPortionsQuantity.text = "${recipeState.recipe.numOfPortions}"
-                        sbPortionsQuantity.setPadding(0, 0, 0, 0)
-                        sbPortionsQuantity.progress = recipeState.recipe.numOfPortions
-                    }
-
-                    with(binding.ibRecipeFavoritesBtn) {
-                        setImageDrawable(
-                            ResourcesCompat.getDrawable(
-                                resources,
-                                if (recipeState.isInFavorites) {
-                                    R.drawable.ic_heart
-                                } else R.drawable.ic_heart_empty,
-                                null
-                            )
-                        )
-
-                        setOnClickListener {
-                            isClickedOnFavorites = true
-                            viewModel.onFavoritesClicked()
-                        }
-                    }
-
-                    with(binding.ivTitleRecipeImage) {
-                        Glide.with(context)
-                            .load(recipeState.recipeImageURL)
-                            .placeholder(R.drawable.img_placeholder)
-                            .error(R.drawable.img_error)
-                            .into(this)
-
-                        contentDescription =
-                            "${context?.getString(R.string.cont_descr_iv_recipe)} " +
-                                    recipeState.recipe.title
-                    }
-
-                    initRecyclers(recipeState)
+            if (!recipeState.isLoading) {
+                if (recipeState.recipe == null) {
+                    Toast.makeText(requireContext(), ERROR_OF_DATA_LOADING, Toast.LENGTH_SHORT)
+                        .show()
                 } else {
-                    with(binding) {
-                        tvPortionsQuantity.text = "${recipeState.recipe.numOfPortions}"
-                        sbPortionsQuantity.progress = recipeState.recipe.numOfPortions
-                    }
+                    if (isNewFragment) {
+                        isNewFragment = false
+                        with(binding) {
+                            tvTitleRecipeText.text = recipeState.recipe.title
+                            tvPortionsQuantity.text = "${recipeState.recipe.numOfPortions}"
+                            sbPortionsQuantity.setPadding(0, 0, 0, 0)
+                            sbPortionsQuantity.progress = recipeState.recipe.numOfPortions
+                        }
 
-                    if (isClickedOnFavorites) {
-                        isClickedOnFavorites = false
-                        binding.ibRecipeFavoritesBtn.setImageDrawable(
-                            ResourcesCompat.getDrawable(
-                                resources,
-                                if (recipeState.isInFavorites) {
-                                    R.drawable.ic_heart
-                                } else R.drawable.ic_heart_empty,
-                                null
+                        with(binding.ibRecipeFavoritesBtn) {
+                            setImageDrawable(
+                                ResourcesCompat.getDrawable(
+                                    resources,
+                                    if (recipeState.isInFavorites) {
+                                        R.drawable.ic_heart
+                                    } else R.drawable.ic_heart_empty,
+                                    null
+                                )
                             )
-                        )
-                    }
 
-                    ingredientsAdapter.notifyUpdateIngredients()
+                            setOnClickListener {
+                                isClickedOnFavorites = true
+                                viewModel.onFavoritesClicked()
+                            }
+                        }
+
+                        with(binding.ivTitleRecipeImage) {
+                            Glide.with(context)
+                                .load(recipeState.recipeImageURL)
+                                .placeholder(R.drawable.img_placeholder)
+                                .error(R.drawable.img_error)
+                                .into(this)
+
+                            contentDescription =
+                                "${context?.getString(R.string.cont_descr_iv_recipe)} " +
+                                        recipeState.recipe.title
+                        }
+
+                        initRecyclers(recipeState)
+                    } else {
+                        with(binding) {
+                            tvPortionsQuantity.text = "${recipeState.recipe.numOfPortions}"
+                            sbPortionsQuantity.progress = recipeState.recipe.numOfPortions
+                        }
+
+                        if (isClickedOnFavorites) {
+                            isClickedOnFavorites = false
+                            binding.ibRecipeFavoritesBtn.setImageDrawable(
+                                ResourcesCompat.getDrawable(
+                                    resources,
+                                    if (recipeState.isInFavorites) {
+                                        R.drawable.ic_heart
+                                    } else R.drawable.ic_heart_empty,
+                                    null
+                                )
+                            )
+                        }
+
+                        ingredientsAdapter.notifyUpdateIngredients()
+                    }
                 }
             }
         }

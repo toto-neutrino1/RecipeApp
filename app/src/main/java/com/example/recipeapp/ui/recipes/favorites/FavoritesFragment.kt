@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.example.recipeapp.data.DATA_LOADING
+import com.example.recipeapp.data.ERROR_OF_DATA_LOADING
 import com.example.recipeapp.databinding.FragmentFavoritesBinding
 import com.example.recipeapp.ui.recipes.recipesList.RecipesListAdapter
 
@@ -43,27 +43,30 @@ class FavoritesFragment : Fragment() {
     private fun initUI() {
         viewModel.loadFavorites()
         viewModel.favoritesUiState.observe(viewLifecycleOwner) { favoritesState ->
-            if (favoritesState.recipesList == null) {
-                Toast.makeText(requireContext(), DATA_LOADING, Toast.LENGTH_SHORT).show()
-            } else {
-                if (favoritesState.recipesList.isNotEmpty()) {
-                    binding.tvFavoritesStub.visibility = View.GONE
-                    binding.rvFavorites.visibility = View.VISIBLE
-
-                    recipesListAdapter.dataset = favoritesState.recipesList
-
-                    recipesListAdapter.setOnItemClickListener(
-                        object : RecipesListAdapter.OnItemClickListener {
-                            override fun onItemClick(recipeId: Int) {
-                                openRecipeByRecipeId(recipeId)
-                            }
-                        }
-                    )
-
-                    binding.rvFavorites.adapter = recipesListAdapter
+            if (!favoritesState.isLoading) {
+                if (favoritesState.recipesList == null) {
+                    Toast.makeText(requireContext(), ERROR_OF_DATA_LOADING, Toast.LENGTH_SHORT)
+                        .show()
                 } else {
-                    binding.tvFavoritesStub.visibility = View.VISIBLE
-                    binding.rvFavorites.visibility = View.GONE
+                    if (favoritesState.recipesList.isNotEmpty()) {
+                        binding.tvFavoritesStub.visibility = View.GONE
+                        binding.rvFavorites.visibility = View.VISIBLE
+
+                        recipesListAdapter.dataset = favoritesState.recipesList
+
+                        recipesListAdapter.setOnItemClickListener(
+                            object : RecipesListAdapter.OnItemClickListener {
+                                override fun onItemClick(recipeId: Int) {
+                                    openRecipeByRecipeId(recipeId)
+                                }
+                            }
+                        )
+
+                        binding.rvFavorites.adapter = recipesListAdapter
+                    } else {
+                        binding.tvFavoritesStub.visibility = View.VISIBLE
+                        binding.rvFavorites.visibility = View.GONE
+                    }
                 }
             }
         }

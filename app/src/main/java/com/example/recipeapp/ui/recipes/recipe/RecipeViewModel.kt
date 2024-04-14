@@ -19,7 +19,8 @@ import java.util.Locale
 data class RecipeUiState(
     val recipe: Recipe? = null,
     val isInFavorites: Boolean = false,
-    val recipeImageURL: String = ""
+    val recipeImageURL: String = "",
+    val isLoading: Boolean = true
 )
 
 class RecipeViewModel(private val application: Application) : AndroidViewModel(application) {
@@ -53,7 +54,8 @@ class RecipeViewModel(private val application: Application) : AndroidViewModel(a
                 _recipeUiState.value?.copy(
                     recipe = recipe,
                     isInFavorites = "$recipeId" in favoritesIdsStringSet,
-                    recipeImageURL = "${recipe?.imageUrl}"
+                    recipeImageURL = "${recipe?.imageUrl}",
+                    isLoading = false
                 )
         }
     }

@@ -21,7 +21,6 @@
                 android:layout_height="@dimen/big_112"
                 android:contentDescription="@string/cont_descr_iv_recipe"
                 android:scaleType="centerCrop"
-                android:src="@drawable/bcg_recipes_list"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 

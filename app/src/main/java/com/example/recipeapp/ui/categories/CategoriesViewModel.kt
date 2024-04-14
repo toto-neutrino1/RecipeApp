@@ -9,7 +9,8 @@ import com.example.recipeapp.model.Category
 import kotlinx.coroutines.launch
 
 data class CategoriesUiState(
-    val categoriesList: List<Category>? = listOf()
+    val categoriesList: List<Category>? = listOf(),
+    val isLoading: Boolean = true
 )
 
 class CategoriesViewModel : ViewModel() {
@@ -22,7 +23,10 @@ class CategoriesViewModel : ViewModel() {
     fun loadCategories() {
         viewModelScope.launch {
             _categoriesUiState.value =
-                _categoriesUiState.value?.copy(categoriesList = recipesRepository.getCategories())
+                _categoriesUiState.value?.copy(
+                    categoriesList = recipesRepository.getCategories(),
+                    isLoading = false
+                )
         }
     }
 }

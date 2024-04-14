@@ -11,7 +11,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.example.recipeapp.R
-import com.example.recipeapp.data.DATA_LOADING
+import com.example.recipeapp.data.ERROR_OF_DATA_LOADING
 import com.example.recipeapp.databinding.FragmentListRecipesBinding
 
 class RecipesListFragment : Fragment() {
@@ -52,24 +52,27 @@ class RecipesListFragment : Fragment() {
 
     private fun initUI() {
         viewModel.recipeListUiState.observe(viewLifecycleOwner) { recipeListState ->
-            if (recipeListState.category == null || recipeListState.recipesList == null) {
-                Toast.makeText(requireContext(), DATA_LOADING, Toast.LENGTH_SHORT).show()
-            } else {
-                binding.tvTitleListRecipesText.text = recipeListState.category.title
+            if (!recipeListState.isLoading) {
+                if (recipeListState.category == null || recipeListState.recipesList == null) {
+                    Toast.makeText(requireContext(), ERROR_OF_DATA_LOADING, Toast.LENGTH_SHORT)
+                        .show()
+                } else {
+                    binding.tvTitleListRecipesText.text = recipeListState.category.title
 
-                with(binding.ivTitleListRecipesImage) {
-                    Glide.with(context)
-                        .load(recipeListState.recipeListTitleImageURL)
-                        .placeholder(R.drawable.img_placeholder)
-                        .error(R.drawable.img_error)
-                        .into(this)
+                    with(binding.ivTitleListRecipesImage) {
+                        Glide.with(context)
+                            .load(recipeListState.recipeListTitleImageURL)
+                            .placeholder(R.drawable.img_placeholder)
+                            .error(R.drawable.img_error)
+                            .into(this)
 
-                    contentDescription =
-                        "${context?.getString(R.string.cont_descr_iv_list_recipes)} " +
-                                recipeListState.category.title
+                        contentDescription =
+                            "${context?.getString(R.string.cont_descr_iv_list_recipes)} " +
+                                    recipeListState.category.title
+                    }
+
+                    initRecycler(recipeListState)
                 }
-
-                initRecycler(recipeListState)
             }
         }
     }

@@ -13,7 +13,8 @@ import com.example.recipeapp.model.Recipe
 import kotlinx.coroutines.launch
 
 data class FavoritesUiState(
-    val recipesList: List<Recipe>? = listOf()
+    val recipesList: List<Recipe>? = listOf(),
+    val isLoading: Boolean = true
 )
 
 class FavoritesViewModel(private val application: Application) : AndroidViewModel(application) {
@@ -27,7 +28,8 @@ class FavoritesViewModel(private val application: Application) : AndroidViewMode
         viewModelScope.launch {
             _favoritesUiState.value =
                 _favoritesUiState.value?.copy(
-                    recipesList = recipesRepository.getRecipesByIds(getFavoritesIds())
+                    recipesList = recipesRepository.getRecipesByIds(getFavoritesIds()),
+                    isLoading = false
                 )
         }
     }
