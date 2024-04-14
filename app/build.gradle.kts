@@ -1,5 +1,3 @@
-import com.android.build.gradle.internal.utils.getKotlinAndroidPluginVersion
-
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -74,5 +72,5 @@ dependencies {
 
     implementation("androidx.room:room-runtime:$roomVersion")
     annotationProcessor("androidx.room:room-compiler:$roomVersion")
-    ksp ("androidx.room:room-compiler:$roomVersion")
+    ksp("androidx.room:room-compiler:$roomVersion")
 }
