@@ -3,6 +3,7 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id("kotlin-parcelize")
     id("androidx.navigation.safeargs.kotlin")
+    id("com.google.devtools.ksp")
 }
 
 android {
@@ -44,6 +45,7 @@ android {
 dependencies {
     val fragmentVersion = "1.6.2"
     val navVersion = "2.7.7"
+    val roomVersion = "2.6.1"
 
     implementation("androidx.fragment:fragment-ktx:$fragmentVersion")
 
@@ -67,4 +69,8 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-gson:2.11.0")
 
     implementation("com.github.bumptech.glide:glide:4.16.0")
+
+    implementation("androidx.room:room-runtime:$roomVersion")
+    annotationProcessor("androidx.room:room-compiler:$roomVersion")
+    ksp("androidx.room:room-compiler:$roomVersion")
 }
