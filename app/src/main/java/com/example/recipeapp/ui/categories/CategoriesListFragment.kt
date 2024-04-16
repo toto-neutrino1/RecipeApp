@@ -42,7 +42,6 @@ class CategoriesListFragment : Fragment() {
         viewModel.loadCategories()
 
         viewModel.categoriesUiState.observe(viewLifecycleOwner) { categoriesState ->
-
             if (categoriesState.categoriesList == null) {
                 if (!categoriesState.isLoading) {
                     Toast.makeText(requireContext(), ERROR_OF_DATA_LOADING, Toast.LENGTH_SHORT)
@@ -60,7 +59,6 @@ class CategoriesListFragment : Fragment() {
 
                 binding.rvCategories.adapter = categoriesListAdapter
             }
-
         }
     }
 
