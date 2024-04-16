@@ -42,23 +42,25 @@ class CategoriesListFragment : Fragment() {
         viewModel.loadCategories()
 
         viewModel.categoriesUiState.observe(viewLifecycleOwner) { categoriesState ->
-            if (!categoriesState.isLoading) {
-                if (categoriesState.categoriesList == null) {
+
+            if (categoriesState.categoriesList == null) {
+                if (!categoriesState.isLoading) {
                     Toast.makeText(requireContext(), ERROR_OF_DATA_LOADING, Toast.LENGTH_SHORT)
                         .show()
-                } else {
-                    categoriesListAdapter.dataset = categoriesState.categoriesList
-                    categoriesListAdapter.setOnItemClickListener(
-                        object : CategoriesListAdapter.OnItemClickListener {
-                            override fun onItemClick(categoryId: Int) {
-                                openRecipesByCategoryId(categoryId)
-                            }
-                        }
-                    )
-
-                    binding.rvCategories.adapter = categoriesListAdapter
                 }
+            } else {
+                categoriesListAdapter.dataset = categoriesState.categoriesList
+                categoriesListAdapter.setOnItemClickListener(
+                    object : CategoriesListAdapter.OnItemClickListener {
+                        override fun onItemClick(categoryId: Int) {
+                            openRecipesByCategoryId(categoryId)
+                        }
+                    }
+                )
+
+                binding.rvCategories.adapter = categoriesListAdapter
             }
+
         }
     }
 

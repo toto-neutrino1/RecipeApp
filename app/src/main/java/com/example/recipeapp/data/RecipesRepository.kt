@@ -12,7 +12,9 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class RecipesRepository {
+class RecipesRepository(
+    private val categoriesDao: CategoriesDao,
+) {
     private val logging = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
     private val client = OkHttpClient.Builder().addInterceptor(logging).build()
     private val retrofit = Retrofit.Builder()
@@ -22,6 +24,21 @@ class RecipesRepository {
         .build()
 
     private val service = retrofit.create(RecipeApiService::class.java)
+
+    suspend fun getCategoriesFromCash(): List<Category>? {
+        var categories: List<Category>?
+        withContext(Dispatchers.IO) {
+            categories = categoriesDao.getCategories()
+        }
+
+        return categories
+    }
+
+    suspend fun addCategories(categories: List<Category>?) {
+        withContext(Dispatchers.IO) {
+            if (categories != null) categoriesDao.addCategories(categories)
+        }
+    }
 
     suspend fun getCategories(): List<Category>? {
         var categories: List<Category>? = null

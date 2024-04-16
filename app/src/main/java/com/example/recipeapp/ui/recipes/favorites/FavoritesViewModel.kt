@@ -6,6 +6,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.example.recipeapp.data.RecipesDatabase
 import com.example.recipeapp.data.RecipesRepository
 import com.example.recipeapp.data.SHARED_FAVORITES_IDS_FILE_NAME
 import com.example.recipeapp.data.SHARED_FAVORITES_IDS_KEY
@@ -22,7 +23,12 @@ class FavoritesViewModel(private val application: Application) : AndroidViewMode
         MutableLiveData(FavoritesUiState())
     val favoritesUiState: LiveData<FavoritesUiState> = _favoritesUiState
 
-    private val recipesRepository = RecipesRepository()
+    private val recipesRepository: RecipesRepository
+
+    init {
+        val db = RecipesDatabase.getDatabase(application)
+        recipesRepository = RecipesRepository(db.categoriesDao())
+    }
 
     fun loadFavorites() {
         viewModelScope.launch {

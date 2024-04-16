@@ -7,6 +7,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.recipeapp.data.NUM_OF_INGREDIENT_MANTIS
+import com.example.recipeapp.data.RecipesDatabase
 import com.example.recipeapp.data.RecipesRepository
 import com.example.recipeapp.data.SHARED_FAVORITES_IDS_FILE_NAME
 import com.example.recipeapp.data.SHARED_FAVORITES_IDS_KEY
@@ -29,7 +30,12 @@ class RecipeViewModel(private val application: Application) : AndroidViewModel(a
     private var _recipeUiState: MutableLiveData<RecipeUiState> = MutableLiveData(RecipeUiState())
     val recipeUiState: LiveData<RecipeUiState> = _recipeUiState
 
-    private val recipesRepository = RecipesRepository()
+    private val recipesRepository: RecipesRepository
+
+    init {
+        val db = RecipesDatabase.getDatabase(application)
+        recipesRepository = RecipesRepository(db.categoriesDao())
+    }
 
     fun loadRecipe(recipeId: Int?) {
         viewModelScope.launch {
