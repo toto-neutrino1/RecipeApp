@@ -23,15 +23,18 @@ class CategoriesViewModel(application: Application) : AndroidViewModel(applicati
 
     fun loadCategories() {
         viewModelScope.launch {
+            val cache = recipesRepository.getCategoriesFromCache()
+
             _categoriesUiState.value = _categoriesUiState.value?.copy(
-                categoriesList = recipesRepository.getCategoriesFromCash(),
+                categoriesList = cache,
                 isLoading = true
             )
 
-            recipesRepository.addCategories(recipesRepository.getCategories())
+            val remote = recipesRepository.getCategories()
+                ?.apply { recipesRepository.addCategories(this) }
 
             _categoriesUiState.value = _categoriesUiState.value?.copy(
-                categoriesList = recipesRepository.getCategoriesFromCash(),
+                categoriesList = remote,
                 isLoading = false
             )
         }

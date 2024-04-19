@@ -9,7 +9,7 @@ import com.example.recipeapp.model.Category
 @Dao
 interface CategoriesDao {
     @Query("SELECT * FROM $CATEGORY")
-    fun getCategories(): List<Category>?
+    fun getCategories(): List<Category>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun addCategories(categories: List<Category>)

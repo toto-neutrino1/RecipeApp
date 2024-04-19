@@ -2,7 +2,6 @@ package com.example.recipeapp.data
 
 import android.app.Application
 import android.util.Log
-import androidx.room.Room
 import com.example.recipeapp.model.Category
 import com.example.recipeapp.model.Recipe
 import kotlinx.coroutines.Dispatchers
@@ -30,18 +29,14 @@ class RecipesRepository(
     private val db = RecipesDatabase.getDatabase(application)
     private val categoriesDao = db.categoriesDao()
 
-    suspend fun getCategoriesFromCash(): List<Category>? {
-        var categories: List<Category>?
+    suspend fun getCategoriesFromCache(): List<Category> =
         withContext(Dispatchers.IO) {
-            categories = categoriesDao.getCategories()
+            categoriesDao.getCategories()
         }
 
-        return categories
-    }
-
-    suspend fun addCategories(categories: List<Category>?) {
+    suspend fun addCategories(categories: List<Category>) {
         withContext(Dispatchers.IO) {
-            if (categories != null) categoriesDao.addCategories(categories)
+            categoriesDao.addCategories(categories)
         }
     }
 
