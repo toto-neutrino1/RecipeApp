@@ -22,7 +22,7 @@ class FavoritesViewModel(private val application: Application) : AndroidViewMode
         MutableLiveData(FavoritesUiState())
     val favoritesUiState: LiveData<FavoritesUiState> = _favoritesUiState
 
-    private val recipesRepository = RecipesRepository()
+    private val recipesRepository: RecipesRepository = RecipesRepository(application)
 
     fun loadFavorites() {
         viewModelScope.launch {

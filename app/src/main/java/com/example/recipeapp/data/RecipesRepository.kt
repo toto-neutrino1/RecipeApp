@@ -1,5 +1,6 @@
 package com.example.recipeapp.data
 
+import android.app.Application
 import android.util.Log
 import com.example.recipeapp.model.Category
 import com.example.recipeapp.model.Recipe
@@ -12,7 +13,9 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class RecipesRepository {
+class RecipesRepository(
+    private val application: Application,
+) {
     private val logging = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
     private val client = OkHttpClient.Builder().addInterceptor(logging).build()
     private val retrofit = Retrofit.Builder()
@@ -22,6 +25,20 @@ class RecipesRepository {
         .build()
 
     private val service = retrofit.create(RecipeApiService::class.java)
+
+    private val db = RecipesDatabase.getDatabase(application)
+    private val categoriesDao = db.categoriesDao()
+
+    suspend fun getCategoriesFromCache(): List<Category> =
+        withContext(Dispatchers.IO) {
+            categoriesDao.getCategories()
+        }
+
+    suspend fun addCategories(categories: List<Category>) {
+        withContext(Dispatchers.IO) {
+            categoriesDao.addCategories(categories)
+        }
+    }
 
     suspend fun getCategories(): List<Category>? {
         var categories: List<Category>? = null

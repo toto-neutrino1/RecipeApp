@@ -22,7 +22,7 @@ class RecipeListViewModel(private val application: Application) : AndroidViewMod
         MutableLiveData(RecipeListUiState())
     val recipeListUiState: LiveData<RecipeListUiState> = _recipeListUiState
 
-    private val recipesRepository = RecipesRepository()
+    private val recipesRepository: RecipesRepository = RecipesRepository(application)
 
     fun loadRecipesList(categoryId: Int) {
         viewModelScope.launch {
